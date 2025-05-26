@@ -12,11 +12,11 @@ import com.shf.common.utils.R;
 import com.shf.common.vo.MemberResponseVo;
 import com.shf.gulimall.seckill.feign.CouponFeignService;
 import com.shf.gulimall.seckill.feign.ProductFeignService;
+import com.shf.gulimall.seckill.interceptor.LoginUserInterceptor;
+import com.shf.gulimall.seckill.service.SeckillService;
 import com.shf.gulimall.seckill.to.SeckillSkuRedisTo;
 import com.shf.gulimall.seckill.vo.SeckillSessionWithSkusVo;
 import com.shf.gulimall.seckill.vo.SkuInfoVo;
-import com.shf.gulimall.seckill.interceptor.LoginUserInterceptor;
-import com.shf.gulimall.seckill.service.SeckillService;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RSemaphore;
 import org.redisson.api.RedissonClient;
@@ -80,7 +80,7 @@ public class SeckillServiceImpl implements SeckillService {
             List<SeckillSessionWithSkusVo> sessionData = lates3DaySession.getData(
                     "data",
                     new TypeReference<List<SeckillSessionWithSkusVo>>() {
-            });
+                    });
 
             //缓存到Redis
             //1、缓存活动信息
@@ -94,6 +94,7 @@ public class SeckillServiceImpl implements SeckillService {
 
     /**
      * 缓存秒杀活动信息
+     *
      * @param sessions
      */
     private void saveSessionInfos(List<SeckillSessionWithSkusVo> sessions) {
@@ -113,9 +114,9 @@ public class SeckillServiceImpl implements SeckillService {
             if (!hasKey) {
                 //获取到活动中所有商品的skuId  场次id+商品id
                 List<String> skuIds = session.getRelationSkus().stream().map(item ->
-                        item.getPromotionSessionId() + "-" + item.getSkuId().toString())
+                                item.getPromotionSessionId() + "-" + item.getSkuId().toString())
                         .collect(Collectors.toList());
-                redisTemplate.opsForList().leftPushAll(key,skuIds);
+                redisTemplate.opsForList().leftPushAll(key, skuIds);
             }
         });
 
@@ -123,6 +124,7 @@ public class SeckillServiceImpl implements SeckillService {
 
     /**
      * 缓存秒杀活动所关联的[商品]信息
+     *
      * @param sessions
      */
     private void saveSessionSkuInfo(List<SeckillSessionWithSkusVo> sessions) {
@@ -144,12 +146,13 @@ public class SeckillServiceImpl implements SeckillService {
                     R info = productFeignService.getSkuInfo(skuId);
 
                     if (info.getCode() == 0) {
-                        SkuInfoVo skuInfo = info.getData("skuInfo",new TypeReference<SkuInfoVo>(){});
+                        SkuInfoVo skuInfo = info.getData("skuInfo", new TypeReference<SkuInfoVo>() {
+                        });
                         redisTo.setSkuInfo(skuInfo);
                     }
 
                     //2、sku的秒杀信息
-                    BeanUtils.copyProperties(seckillSkuVo,redisTo);
+                    BeanUtils.copyProperties(seckillSkuVo, redisTo);
 
                     //3、设置当前商品的秒杀时间信息
                     redisTo.setStartTime(session.getStartTime().getTime());
@@ -163,7 +166,7 @@ public class SeckillServiceImpl implements SeckillService {
 //                    场次id + 商品id
                     String key = seckillSkuVo.getPromotionSessionId().toString() + "-" + seckillSkuVo.getSkuId();
 //                    存入redis
-                    ops.put(key,seckillValue);
+                    ops.put(key, seckillValue);
 
                     //5、使用库存作为分布式Redisson信号量（限流）
                     //如果当前这个场次的商品库存信息已经上架就不需要上架
@@ -180,9 +183,10 @@ public class SeckillServiceImpl implements SeckillService {
 
     /**
      * 获取到当前可以参加秒杀商品的信息
+     *
      * @return
      */
-    @SentinelResource(value = "getCurrentSeckillSkusResource",blockHandler = "blockHandler") // 自定义受保护的资源
+    @SentinelResource(value = "getCurrentSeckillSkusResource", blockHandler = "blockHandler") // 自定义受保护的资源
     @Override
     public List<SeckillSkuRedisTo> getCurrentSeckillSkus() {
 //        自定义受保护的资源
@@ -222,7 +226,7 @@ public class SeckillServiceImpl implements SeckillService {
                 }
             }
         } catch (BlockException e) {
-            log.error("资源被限流{}",e.getMessage());
+            log.error("资源被限流{}", e.getMessage());
         }
 
         return null;
@@ -230,17 +234,19 @@ public class SeckillServiceImpl implements SeckillService {
 
     /**
      * 限流回调方法
+     *
      * @param e
      * @return
      */
     public List<SeckillSkuRedisTo> blockHandler(BlockException e) {
 
-        log.error("getCurrentSeckillSkusResource被限流了,{}",e.getMessage());
+        log.error("getCurrentSeckillSkusResource被限流了,{}", e.getMessage());
         return null;
     }
 
     /**
      * 根据skuId查询商品是否参加秒杀活动
+     *
      * @param skuId
      * @return
      */
@@ -257,7 +263,7 @@ public class SeckillServiceImpl implements SeckillService {
             String reg = "\\d-" + skuId;
             for (String key : keys) {
                 //如果匹配上了
-                if (Pattern.matches(reg,key)) {
+                if (Pattern.matches(reg, key)) {
                     //从Redis中取出数据来
                     String redisValue = hashOps.get(key);
                     //进行序列化
@@ -282,6 +288,7 @@ public class SeckillServiceImpl implements SeckillService {
 
     /**
      * 当前商品进行秒杀（秒杀开始）
+     *
      * @param killId
      * @param key
      * @param num
@@ -310,7 +317,7 @@ public class SeckillServiceImpl implements SeckillService {
 
             //2、效验随机码和商品id
             String randomCode = redisTo.getRandomCode();
-            String skuId = redisTo.getPromotionSessionId() + "-" +redisTo.getSkuId();
+            String skuId = redisTo.getPromotionSessionId() + "-" + redisTo.getSkuId();
             if (randomCode.equals(key) && killId.equals(skuId)) {
                 //3、验证购物数量是否合理和库存量是否充足
                 Integer seckillLimit = redisTo.getSeckillLimit();
@@ -319,7 +326,7 @@ public class SeckillServiceImpl implements SeckillService {
                 String seckillCount = redisTemplate.opsForValue().get(SKU_STOCK_SEMAPHORE + randomCode);
                 Integer count = Integer.valueOf(seckillCount);
                 //判断信号量是否大于0,并且买的数量不能超过库存
-                if (count > 0 && num <= seckillLimit && count > num ) {
+                if (count > 0 && num <= seckillLimit && count > num) {
                     //4、验证这个人是否已经买过了（幂等性处理）,如果秒杀成功，就去占位。userId-sessionId-skuId
                     //SETNX 原子性处理
                     String redisKey = user.getId() + "-" + skuId;

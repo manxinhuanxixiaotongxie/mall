@@ -7,24 +7,26 @@
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
         <el-button
-          v-if="isAuth('coupon:seckillsession:save')"
-          type="primary"
-          @click="addOrUpdateHandle()"
-        >新增</el-button>
+            v-if="isAuth('coupon:seckillsession:save')"
+            type="primary"
+            @click="addOrUpdateHandle()"
+        >新增
+        </el-button>
         <el-button
-          v-if="isAuth('coupon:seckillsession:delete')"
-          type="danger"
-          @click="deleteHandle()"
-          :disabled="dataListSelections.length <= 0"
-        >批量删除</el-button>
+            v-if="isAuth('coupon:seckillsession:delete')"
+            type="danger"
+            @click="deleteHandle()"
+            :disabled="dataListSelections.length <= 0"
+        >批量删除
+        </el-button>
       </el-form-item>
     </el-form>
     <el-table
-      :data="dataList"
-      border
-      v-loading="dataListLoading"
-      @selection-change="selectionChangeHandle"
-      style="width: 100%;"
+        :data="dataList"
+        border
+        v-loading="dataListLoading"
+        @selection-change="selectionChangeHandle"
+        style="width: 100%;"
     >
       <el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
       <el-table-column prop="id" header-align="center" align="center" label="id"></el-table-column>
@@ -42,23 +44,23 @@
       </el-table-column>
     </el-table>
     <el-pagination
-      @size-change="sizeChangeHandle"
-      @current-change="currentChangeHandle"
-      :current-page="pageIndex"
-      :page-sizes="[10, 20, 50, 100]"
-      :page-size="pageSize"
-      :total="totalPage"
-      layout="total, sizes, prev, pager, next, jumper"
+        @size-change="sizeChangeHandle"
+        @current-change="currentChangeHandle"
+        :current-page="pageIndex"
+        :page-sizes="[10, 20, 50, 100]"
+        :page-size="pageSize"
+        :total="totalPage"
+        layout="total, sizes, prev, pager, next, jumper"
     ></el-pagination>
     <!-- 弹窗, 新增 / 修改 -->
     <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
     <div>
       <el-dialog
-        append-to-body
-        :close-on-click-modal="false"
-        :visible.sync="visible"
-        title="关联秒杀商品"
-        width="60%"
+          append-to-body
+          :close-on-click-modal="false"
+          :visible.sync="visible"
+          title="关联秒杀商品"
+          width="60%"
       >
         <seckillsku-relation ref="seckillskuRelation" :sessionId="currentId"></seckillsku-relation>
       </el-dialog>
@@ -69,6 +71,7 @@
 <script>
 import AddOrUpdate from "./seckillsession-add-or-update";
 import SeckillskuRelation from "./seckillskurelation";
+
 export default {
   data() {
     return {
@@ -105,7 +108,7 @@ export default {
           limit: this.pageSize,
           key: this.dataForm.key
         })
-      }).then(({ data }) => {
+      }).then(({data}) => {
         if (data && data.code === 0) {
           this.dataList = data.page.list;
           this.totalPage = data.page.totalCount;
@@ -116,7 +119,8 @@ export default {
         this.dataListLoading = false;
       });
     },
-    getRealtionDataList() {},
+    getRealtionDataList() {
+    },
     // 每页数
     sizeChangeHandle(val) {
       this.pageSize = val;
@@ -149,24 +153,24 @@ export default {
     // 删除
     deleteHandle(id) {
       var ids = id
-        ? [id]
-        : this.dataListSelections.map(item => {
+          ? [id]
+          : this.dataListSelections.map(item => {
             return item.id;
           });
       this.$confirm(
-        `确定对[id=${ids.join(",")}]进行[${id ? "删除" : "批量删除"}]操作?`,
-        "提示",
-        {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        }
+          `确定对[id=${ids.join(",")}]进行[${id ? "删除" : "批量删除"}]操作?`,
+          "提示",
+          {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          }
       ).then(() => {
         this.$http({
           url: this.$http.adornUrl("/coupon/seckillsession/delete"),
           method: "post",
           data: this.$http.adornData(ids, false)
-        }).then(({ data }) => {
+        }).then(({data}) => {
           if (data && data.code === 0) {
             this.$message({
               message: "操作成功",

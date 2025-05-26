@@ -30,10 +30,12 @@
                 <a th:if="${session.loginUser == null}" href="http://auth.gulimall.com/login.html">你好，请登录</a>
             </li>
             <li>
-                <a th:if="${session.loginUser == null}" href="http://auth.gulimall.com/reg.html" class="li_2">免费注册</a>
+                <a th:if="${session.loginUser == null}" href="http://auth.gulimall.com/reg.html"
+                   class="li_2">免费注册</a>
             </li>
             <li>
-                <a th:if="${session.loginUser != null}" href="http://auth.gulimall.com/loguot.html" class="li_2">立即退出</a>
+                <a th:if="${session.loginUser != null}" href="http://auth.gulimall.com/loguot.html"
+                   class="li_2">立即退出</a>
             </li>
 
             <li>
@@ -80,9 +82,11 @@
                             <div class="p-info">
                                 <div class="p-name">
                                     <a th:href="'http://item.gulimall.com/'+${cartItem.skuId}+'.html'"
-                                       th:text="${cartItem.title}">TCL 55A950C 55英寸32核人工智能 HDR曲面超薄4K电视金属机身（枪色）</a>
+                                       th:text="${cartItem.title}">TCL 55A950C 55英寸32核人工智能
+                                        HDR曲面超薄4K电视金属机身（枪色）</a>
                                 </div>
-                                <div class="p-extra"><span class="txt" th:text="'数量：'+${cartItem.count}">  数量：1</span></div>
+                                <div class="p-extra"><span class="txt"
+                                                           th:text="'数量：'+${cartItem.count}">  数量：1</span></div>
                             </div>
                             <div class="clr"></div>
                         </div>

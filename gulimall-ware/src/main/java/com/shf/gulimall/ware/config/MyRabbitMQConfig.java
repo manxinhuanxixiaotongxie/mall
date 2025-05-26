@@ -23,6 +23,7 @@ public class MyRabbitMQConfig {
 
     /**
      * 使用JSON序列化机制，进行消息转换
+     *
      * @return
      */
     @Bean
@@ -37,6 +38,7 @@ public class MyRabbitMQConfig {
 
     /**
      * 库存服务默认的交换机
+     *
      * @return
      */
     @Bean
@@ -48,6 +50,7 @@ public class MyRabbitMQConfig {
 
     /**
      * 普通队列
+     *
      * @return
      */
     @Bean
@@ -60,6 +63,7 @@ public class MyRabbitMQConfig {
 
     /**
      * 延迟队列
+     *
      * @return
      */
     @Bean
@@ -71,13 +75,14 @@ public class MyRabbitMQConfig {
         // 消息过期时间 2分钟
         arguments.put("x-message-ttl", 120000);
 
-        Queue queue = new Queue("stock.delay.queue", true, false, false,arguments);
+        Queue queue = new Queue("stock.delay.queue", true, false, false, arguments);
         return queue;
     }
 
 
     /**
      * 交换机与普通队列绑定
+     *
      * @return
      */
     @Bean
@@ -96,6 +101,7 @@ public class MyRabbitMQConfig {
 
     /**
      * 交换机与延迟队列绑定
+     *
      * @return
      */
     @Bean

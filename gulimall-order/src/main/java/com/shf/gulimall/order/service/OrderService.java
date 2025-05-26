@@ -3,8 +3,12 @@ package com.shf.gulimall.order.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.shf.common.to.mq.SeckillOrderTo;
 import com.shf.common.utils.PageUtils;
-import com.shf.gulimall.order.vo.*;
 import com.shf.gulimall.order.entity.OrderEntity;
+import com.shf.gulimall.order.vo.OrderConfirmVo;
+import com.shf.gulimall.order.vo.OrderSubmitVo;
+import com.shf.gulimall.order.vo.PayAsyncVo;
+import com.shf.gulimall.order.vo.PayVo;
+import com.shf.gulimall.order.vo.SubmitOrderResponseVo;
 
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -22,12 +26,14 @@ public interface OrderService extends IService<OrderEntity> {
 
     /**
      * 订单确认页返回需要用的数据
+     *
      * @return
      */
     OrderConfirmVo confirmOrder() throws ExecutionException, InterruptedException;
 
     /**
      * 创建订单
+     *
      * @param vo
      * @return
      */
@@ -35,6 +41,7 @@ public interface OrderService extends IService<OrderEntity> {
 
     /**
      * 按照订单号获取订单信息
+     *
      * @param orderSn
      * @return
      */
@@ -42,12 +49,14 @@ public interface OrderService extends IService<OrderEntity> {
 
     /**
      * 关闭订单
+     *
      * @param orderEntity
      */
     void closeOrder(OrderEntity orderEntity);
 
     /**
      * 获取当前订单的支付信息
+     *
      * @param orderSn
      * @return
      */
@@ -55,13 +64,15 @@ public interface OrderService extends IService<OrderEntity> {
 
     /**
      * 查询当前用户所有订单数据
+     *
      * @param params
      * @return
      */
     PageUtils queryPageWithItem(Map<String, Object> params);
 
     /**
-     *支付宝异步通知处理订单数据
+     * 支付宝异步通知处理订单数据
+     *
      * @param asyncVo
      * @return
      */
@@ -69,6 +80,7 @@ public interface OrderService extends IService<OrderEntity> {
 
     /**
      * 微信异步通知处理
+     *
      * @param notifyData
      */
     String asyncNotify(String notifyData);
@@ -76,6 +88,7 @@ public interface OrderService extends IService<OrderEntity> {
 
     /**
      * 创建秒杀单
+     *
      * @param orderTo
      */
     void createSeckillOrder(SeckillOrderTo orderTo);

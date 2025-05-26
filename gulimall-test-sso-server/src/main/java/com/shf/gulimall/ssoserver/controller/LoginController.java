@@ -5,7 +5,11 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -19,8 +23,8 @@ import java.util.UUID;
  **/
 
 /**
- *  单点登录
- *
+ * 单点登录
+ * <p>
  * 1. 给登录服务器留下登录痕迹
  * 2.登录服务器要将token信息重定向的时候，带到url地址上
  * 3.其他系统要处理url地址上的关键token，只要有，将token对应的用户保存到自己的session中

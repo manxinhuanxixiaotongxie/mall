@@ -8,7 +8,12 @@
 
 package com.shf.gulimall.generator.config;
 
-import com.shf.gulimall.generator.dao.*;
+import com.shf.gulimall.generator.dao.GeneratorDao;
+import com.shf.gulimall.generator.dao.MongoDBGeneratorDao;
+import com.shf.gulimall.generator.dao.MySQLGeneratorDao;
+import com.shf.gulimall.generator.dao.OracleGeneratorDao;
+import com.shf.gulimall.generator.dao.PostgreSQLGeneratorDao;
+import com.shf.gulimall.generator.dao.SQLServerGeneratorDao;
 import com.shf.gulimall.generator.utils.RRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

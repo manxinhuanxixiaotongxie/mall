@@ -27,17 +27,17 @@ public class MQTest {
     private RabbitTemplate rabbitTemplate;
 
     @Test
-    public void createExchange(){
+    public void createExchange() {
         DirectExchange directExchange = new DirectExchange(
                 "hello-java-exchange",
                 true,
                 false);
         amqpAdmin.declareExchange(directExchange);
-        log.info("exchange{}创建成功",directExchange.getName());
+        log.info("exchange{}创建成功", directExchange.getName());
     }
 
     @Test
-    public void createQueue(){
+    public void createQueue() {
         Queue queue = new Queue(
                 "hello-java-queue",
                 true,
@@ -45,35 +45,35 @@ public class MQTest {
                 false
         );
         amqpAdmin.declareQueue(queue);
-        log.info("queue{}创建成功",queue.getName());
+        log.info("queue{}创建成功", queue.getName());
     }
 
     @Test
-    public void createBinding(){
+    public void createBinding() {
         Binding binding = new Binding(
                 "hello-java-queue",
                 Binding.DestinationType.QUEUE,
                 "hello-java-exchange",
                 "hello.java",
                 null
-          );
+        );
         amqpAdmin.declareBinding(binding);
-        log.info("binding{}创建成功",binding.getRoutingKey());
+        log.info("binding{}创建成功", binding.getRoutingKey());
     }
 
     @Test
-    public void sendMessage(){
+    public void sendMessage() {
         String msg = "hello world";
         rabbitTemplate.convertAndSend(
                 "hello-java-exchange",
                 "hello.java",
                 msg
         );
-        log.info("消息发送完成：{}",msg);
+        log.info("消息发送完成：{}", msg);
     }
 
     @Test
-    public void sendEntity(){
+    public void sendEntity() {
         OrderReturnReasonEntity entity = new OrderReturnReasonEntity();
         entity.setId(1L);
         entity.setCreateTime(new Date());
@@ -84,6 +84,6 @@ public class MQTest {
                 "hello.java",
                 entity
         );
-        log.info("消息发送完成：{}",entity);
+        log.info("消息发送完成：{}", entity);
     }
 }

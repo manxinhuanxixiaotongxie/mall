@@ -21,6 +21,7 @@ public class GuliFeignConfig {
 
     /**
      * 解决feign远程调用丢失请求头问题
+     *
      * @return
      */
     @Bean("requestInterceptor")

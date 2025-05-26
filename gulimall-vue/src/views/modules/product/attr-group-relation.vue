@@ -22,7 +22,8 @@
             <el-table-column prop="attrId" header-align="center" align="center" label="属性id"></el-table-column>
             <el-table-column prop="attrName" header-align="center" align="center" label="属性名"></el-table-column>
             <el-table-column prop="icon" header-align="center" align="center" label="属性图标"></el-table-column>
-            <el-table-column prop="valueSelect" header-align="center" align="center" label="可选值列表"></el-table-column>
+            <el-table-column prop="valueSelect" header-align="center" align="center"
+                             label="可选值列表"></el-table-column>
           </el-table>
           <el-pagination
             @size-change="sizeChangeHandle"
@@ -46,7 +47,8 @@
             type="danger"
             @click="batchDeleteRelation"
             :disabled="dataListSelections.length <= 0"
-          >批量删除</el-button>
+          >批量删除
+          </el-button>
           <!--  -->
           <el-table
             :data="relationAttrs"
@@ -62,11 +64,11 @@
                 <el-tooltip placement="top">
                   <div slot="content">
                     <span v-for="(i,index) in scope.row.valueSelect.split(';')" :key="index">
-                      {{i}}
-                      <br />
+                      {{ i }}
+                      <br/>
                     </span>
                   </div>
-                  <el-tag>{{scope.row.valueSelect.split(";")[0]+" ..."}}</el-tag>
+                  <el-tag>{{ scope.row.valueSelect.split(";")[0] + " ..." }}</el-tag>
                 </el-tooltip>
               </template>
             </el-table-column>
@@ -128,35 +130,35 @@ export default {
     batchDeleteRelation(val) {
       let postData = [];
       this.dataListSelections.forEach(item => {
-        postData.push({ attrId: item.attrId, attrGroupId: this.attrGroupId });
+        postData.push({attrId: item.attrId, attrGroupId: this.attrGroupId});
       });
       this.$http({
         url: this.$http.adornUrl("/product/attrgroup/attr/relation/delete"),
         method: "post",
         data: this.$http.adornData(postData, false)
-      }).then(({ data }) => {
+      }).then(({data}) => {
         if (data.code == 0) {
-          this.$message({ type: "success", message: "删除成功" });
+          this.$message({type: "success", message: "删除成功"});
           this.init(this.attrGroupId);
         } else {
-          this.$message({ type: "error", message: data.msg });
+          this.$message({type: "error", message: data.msg});
         }
       });
     },
     //移除关联
     relationRemove(attrId) {
       let data = [];
-      data.push({ attrId, attrGroupId: this.attrGroupId });
+      data.push({attrId, attrGroupId: this.attrGroupId});
       this.$http({
         url: this.$http.adornUrl("/product/attrgroup/attr/relation/delete"),
         method: "post",
         data: this.$http.adornData(data, false)
-      }).then(({ data }) => {
+      }).then(({data}) => {
         if (data.code == 0) {
-          this.$message({ type: "success", message: "删除成功" });
+          this.$message({type: "success", message: "删除成功"});
           this.init(this.attrGroupId);
         } else {
-          this.$message({ type: "error", message: data.msg });
+          this.$message({type: "error", message: data.msg});
         }
       });
     },
@@ -167,15 +169,15 @@ export default {
       if (this.innerdataListSelections.length > 0) {
         let postData = [];
         this.innerdataListSelections.forEach(item => {
-          postData.push({ attrId: item.attrId, attrGroupId: this.attrGroupId });
+          postData.push({attrId: item.attrId, attrGroupId: this.attrGroupId});
         });
         this.$http({
           url: this.$http.adornUrl("/product/attrgroup/attr/relation"),
           method: "post",
           data: this.$http.adornData(postData, false)
-        }).then(({ data }) => {
+        }).then(({data}) => {
           if (data.code == 0) {
-            this.$message({ type: "success", message: "新增关联成功" });
+            this.$message({type: "success", message: "新增关联成功"});
           }
           this.$emit("refreshData");
           this.init(this.attrGroupId);
@@ -192,11 +194,12 @@ export default {
         ),
         method: "get",
         params: this.$http.adornParams({})
-      }).then(({ data }) => {
+      }).then(({data}) => {
         this.relationAttrs = data.data;
       });
     },
-    dialogClose() {},
+    dialogClose() {
+    },
 
     //========
     // 获取数据列表
@@ -212,7 +215,7 @@ export default {
           limit: this.pageSize,
           key: this.dataForm.key
         })
-      }).then(({ data }) => {
+      }).then(({data}) => {
         if (data && data.code === 0) {
           this.dataList = data.page.list;
           this.totalPage = data.page.totalCount;

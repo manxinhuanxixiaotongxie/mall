@@ -37,7 +37,8 @@ public class CartVo {
     /**
      * 减免价格
      */
-    private BigDecimal reduce = new BigDecimal("0.00");;
+    private BigDecimal reduce = new BigDecimal("0.00");
+    ;
 
     public List<CartItemVo> getItems() {
         return items;
@@ -69,8 +70,9 @@ public class CartVo {
 
 
     /**
-     *  重写计算属性
-     *      需要计算的属性，必须重写他的get方法，保证每次获取属性都会重新计算
+     * 重写计算属性
+     * 需要计算的属性，必须重写他的get方法，保证每次获取属性都会重新计算
+     *
      * @return
      */
     public BigDecimal getTotalAmount() {

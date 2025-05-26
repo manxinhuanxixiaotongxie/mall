@@ -37,7 +37,7 @@ public class SeckillSessionServiceImpl extends ServiceImpl<SeckillSessionDao, Se
         String key = (String) params.get("key");
 
         if (!StringUtils.isEmpty(key)) {
-            queryWrapper.eq("id",key);
+            queryWrapper.eq("id", key);
         }
 
         IPage<SeckillSessionEntity> page = this.page(
@@ -50,6 +50,7 @@ public class SeckillSessionServiceImpl extends ServiceImpl<SeckillSessionDao, Se
 
     /**
      * 查询最近三天需要参加秒杀商品的信息
+     *
      * @return
      */
     @Override
@@ -59,7 +60,7 @@ public class SeckillSessionServiceImpl extends ServiceImpl<SeckillSessionDao, Se
         //查出这三天参与秒杀活动
         List<SeckillSessionEntity> list = this.baseMapper.selectList(
                 new QueryWrapper<SeckillSessionEntity>()
-                .between("start_time", startTime(), endTime()));
+                        .between("start_time", startTime(), endTime()));
 
 //        查询活动参加秒杀的商品
         if (list != null && list.size() > 0) {
@@ -69,7 +70,7 @@ public class SeckillSessionServiceImpl extends ServiceImpl<SeckillSessionDao, Se
                 //查出sms_seckill_sku_relation表中关联的skuId
                 List<SeckillSkuRelationEntity> relationSkus = seckillSkuRelationService.list(
                         new QueryWrapper<SeckillSkuRelationEntity>()
-                        .eq("promotion_session_id", id));
+                                .eq("promotion_session_id", id));
 //                设置所有参加活动的商品
                 session.setRelationSkus(relationSkus);
                 return session;
@@ -82,6 +83,7 @@ public class SeckillSessionServiceImpl extends ServiceImpl<SeckillSessionDao, Se
 
     /**
      * 当前时间  格式化后的日期
+     *
      * @return
      */
     private String startTime() {
@@ -95,6 +97,7 @@ public class SeckillSessionServiceImpl extends ServiceImpl<SeckillSessionDao, Se
 
     /**
      * 结束时间  格式化后的日期
+     *
      * @return
      */
     private String endTime() {

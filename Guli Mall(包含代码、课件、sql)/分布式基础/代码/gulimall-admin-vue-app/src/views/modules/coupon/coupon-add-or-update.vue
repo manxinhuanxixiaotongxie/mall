@@ -92,8 +92,9 @@
 
 <script>
 import SingleUpload from "@/components/upload/singleUpload";
+
 export default {
-  components: { SingleUpload },
+  components: {SingleUpload},
   data() {
     return {
       visible: false,
@@ -120,7 +121,7 @@ export default {
         memberLevel: "",
         publish: 0,
         timeRange: [],
-        useTimeRange:[]
+        useTimeRange: []
       },
       dataRule: {
         couponType: [
@@ -132,18 +133,18 @@ export default {
           }
         ],
         couponImg: [
-          { required: true, message: "优惠券图片不能为空", trigger: "blur" }
+          {required: true, message: "优惠券图片不能为空", trigger: "blur"}
         ],
         couponName: [
-          { required: true, message: "优惠卷名字不能为空", trigger: "blur" }
+          {required: true, message: "优惠卷名字不能为空", trigger: "blur"}
         ],
-        num: [{ required: true, message: "数量不能为空", trigger: "blur" }],
-        amount: [{ required: true, message: "金额不能为空", trigger: "blur" }],
+        num: [{required: true, message: "数量不能为空", trigger: "blur"}],
+        amount: [{required: true, message: "金额不能为空", trigger: "blur"}],
         perLimit: [
-          { required: true, message: "每人限领张数不能为空", trigger: "blur" }
+          {required: true, message: "每人限领张数不能为空", trigger: "blur"}
         ],
         minPoint: [
-          { required: true, message: "使用门槛不能为空", trigger: "blur" }
+          {required: true, message: "使用门槛不能为空", trigger: "blur"}
         ],
         useType: [
           {
@@ -152,9 +153,9 @@ export default {
             trigger: "blur"
           }
         ],
-        note: [{ required: true, message: "备注不能为空", trigger: "blur" }],
+        note: [{required: true, message: "备注不能为空", trigger: "blur"}],
         publishCount: [
-          { required: true, message: "发行数量不能为空", trigger: "blur" }
+          {required: true, message: "发行数量不能为空", trigger: "blur"}
         ],
         enableStartTime: [
           {
@@ -170,7 +171,7 @@ export default {
             trigger: "blur"
           }
         ],
-        code: [{ required: true, message: "优惠码不能为空", trigger: "blur" }],
+        code: [{required: true, message: "优惠码不能为空", trigger: "blur"}],
         memberLevel: [
           {
             required: true,
@@ -194,7 +195,7 @@ export default {
           page: 1,
           limit: 500
         })
-      }).then(({ data }) => {
+      }).then(({data}) => {
         this.memberLevels = data.page.list;
       });
     },
@@ -208,7 +209,7 @@ export default {
             url: this.$http.adornUrl(`/coupon/coupon/info/${this.dataForm.id}`),
             method: "get",
             params: this.$http.adornParams()
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.dataForm.couponType = data.coupon.couponType;
               this.dataForm.couponImg = data.coupon.couponImg;
@@ -269,7 +270,7 @@ export default {
               memberLevel: this.dataForm.memberLevel,
               publish: this.dataForm.publish
             })
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
                 message: "操作成功",

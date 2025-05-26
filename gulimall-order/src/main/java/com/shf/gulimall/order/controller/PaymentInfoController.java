@@ -1,8 +1,9 @@
 package com.shf.gulimall.order.controller;
 
-import java.util.Arrays;
-import java.util.Map;
-
+import com.shf.common.utils.PageUtils;
+import com.shf.common.utils.R;
+import com.shf.gulimall.order.entity.PaymentInfoEntity;
+import com.shf.gulimall.order.service.PaymentInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,11 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shf.gulimall.order.entity.PaymentInfoEntity;
-import com.shf.gulimall.order.service.PaymentInfoService;
-import com.shf.common.utils.PageUtils;
-import com.shf.common.utils.R;
-
+import java.util.Arrays;
+import java.util.Map;
 
 
 /**
@@ -35,7 +33,7 @@ public class PaymentInfoController {
      */
     @RequestMapping("/list")
     //@RequiresPermissions("order:paymentinfo:list")
-    public R list(@RequestParam Map<String, Object> params){
+    public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = paymentInfoService.queryPage(params);
 
         return R.ok().put("page", page);
@@ -47,8 +45,8 @@ public class PaymentInfoController {
      */
     @RequestMapping("/info/{id}")
     //@RequiresPermissions("order:paymentinfo:info")
-    public R info(@PathVariable("id") Long id){
-		PaymentInfoEntity paymentInfo = paymentInfoService.getById(id);
+    public R info(@PathVariable("id") Long id) {
+        PaymentInfoEntity paymentInfo = paymentInfoService.getById(id);
 
         return R.ok().put("paymentInfo", paymentInfo);
     }
@@ -58,8 +56,8 @@ public class PaymentInfoController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("order:paymentinfo:save")
-    public R save(@RequestBody PaymentInfoEntity paymentInfo){
-		paymentInfoService.save(paymentInfo);
+    public R save(@RequestBody PaymentInfoEntity paymentInfo) {
+        paymentInfoService.save(paymentInfo);
 
         return R.ok();
     }
@@ -69,8 +67,8 @@ public class PaymentInfoController {
      */
     @RequestMapping("/update")
     //@RequiresPermissions("order:paymentinfo:update")
-    public R update(@RequestBody PaymentInfoEntity paymentInfo){
-		paymentInfoService.updateById(paymentInfo);
+    public R update(@RequestBody PaymentInfoEntity paymentInfo) {
+        paymentInfoService.updateById(paymentInfo);
 
         return R.ok();
     }
@@ -80,8 +78,8 @@ public class PaymentInfoController {
      */
     @RequestMapping("/delete")
     //@RequiresPermissions("order:paymentinfo:delete")
-    public R delete(@RequestBody Long[] ids){
-		paymentInfoService.removeByIds(Arrays.asList(ids));
+    public R delete(@RequestBody Long[] ids) {
+        paymentInfoService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

@@ -7,7 +7,6 @@ var addrWrap = document.getElementById('addr-wrap');   //省市区显示模块
 var btn2 = document.getElementsByClassName('met2')[0];  //确定按钮
 
 
-
 var current2 = {
     prov: '',
     city: '',

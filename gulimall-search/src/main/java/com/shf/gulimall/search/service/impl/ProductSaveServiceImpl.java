@@ -59,7 +59,7 @@ public class ProductSaveServiceImpl implements ProductSaveService {
             return item.getId();
         }).collect(Collectors.toList());
 
-        log.info("商品上架完成：{}",collect);
+        log.info("商品上架完成：{}", collect);
 
         return hasFailures;
     }

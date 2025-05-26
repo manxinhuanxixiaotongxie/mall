@@ -1,16 +1,16 @@
 /**
  * Copyright (c) 2016-2019 人人开源 All rights reserved.
- *
+ * <p>
  * https://www.renren.io
- *
+ * <p>
  * 版权所有，侵权必究！
  */
 
 package com.shf.gulimall.admin.modules.oss.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.shf.gulimall.admin.modules.oss.entity.SysOssEntity;
 import com.shf.gulimall.admin.common.utils.PageUtils;
+import com.shf.gulimall.admin.modules.oss.entity.SysOssEntity;
 
 import java.util.Map;
 
@@ -21,5 +21,5 @@ import java.util.Map;
  */
 public interface SysOssService extends IService<SysOssEntity> {
 
-	PageUtils queryPage(Map<String, Object> params);
+    PageUtils queryPage(Map<String, Object> params);
 }

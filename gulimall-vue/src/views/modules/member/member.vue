@@ -74,6 +74,7 @@
 
 <script>
 import AddOrUpdate from "./member-add-or-update";
+
 export default {
   data() {
     return {
@@ -107,7 +108,7 @@ export default {
           limit: this.pageSize,
           key: this.dataForm.key
         })
-      }).then(({ data }) => {
+      }).then(({data}) => {
         if (data && data.code === 0) {
           this.dataList = data.page.list;
           this.totalPage = data.page.totalCount;

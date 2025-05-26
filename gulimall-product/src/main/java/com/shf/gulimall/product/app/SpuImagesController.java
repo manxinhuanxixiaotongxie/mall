@@ -1,8 +1,7 @@
 package com.shf.gulimall.product.app;
 
-import java.util.Arrays;
-import java.util.Map;
-
+import com.shf.common.utils.PageUtils;
+import com.shf.common.utils.R;
 import com.shf.gulimall.product.entity.SpuImagesEntity;
 import com.shf.gulimall.product.service.SpuImagesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shf.common.utils.PageUtils;
-import com.shf.common.utils.R;
-
+import java.util.Arrays;
+import java.util.Map;
 
 
 /**
@@ -35,7 +33,7 @@ public class SpuImagesController {
      */
     @RequestMapping("/list")
     //@RequiresPermissions("product:spuimages:list")
-    public R list(@RequestParam Map<String, Object> params){
+    public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = spuImagesService.queryPage(params);
 
         return R.ok().put("page", page);
@@ -47,8 +45,8 @@ public class SpuImagesController {
      */
     @RequestMapping("/info/{id}")
     //@RequiresPermissions("product:spuimages:info")
-    public R info(@PathVariable("id") Long id){
-		SpuImagesEntity spuImages = spuImagesService.getById(id);
+    public R info(@PathVariable("id") Long id) {
+        SpuImagesEntity spuImages = spuImagesService.getById(id);
 
         return R.ok().put("spuImages", spuImages);
     }
@@ -58,8 +56,8 @@ public class SpuImagesController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("product:spuimages:save")
-    public R save(@RequestBody SpuImagesEntity spuImages){
-		spuImagesService.save(spuImages);
+    public R save(@RequestBody SpuImagesEntity spuImages) {
+        spuImagesService.save(spuImages);
 
         return R.ok();
     }
@@ -69,8 +67,8 @@ public class SpuImagesController {
      */
     @RequestMapping("/update")
     //@RequiresPermissions("product:spuimages:update")
-    public R update(@RequestBody SpuImagesEntity spuImages){
-		spuImagesService.updateById(spuImages);
+    public R update(@RequestBody SpuImagesEntity spuImages) {
+        spuImagesService.updateById(spuImages);
 
         return R.ok();
     }
@@ -80,8 +78,8 @@ public class SpuImagesController {
      */
     @RequestMapping("/delete")
     //@RequiresPermissions("product:spuimages:delete")
-    public R delete(@RequestBody Long[] ids){
-		spuImagesService.removeByIds(Arrays.asList(ids));
+    public R delete(@RequestBody Long[] ids) {
+        spuImagesService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

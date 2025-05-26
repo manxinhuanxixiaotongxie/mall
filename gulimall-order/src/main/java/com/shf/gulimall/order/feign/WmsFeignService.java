@@ -22,6 +22,7 @@ public interface WmsFeignService {
 
     /**
      * 查询sku是否有库存
+     *
      * @return
      */
     @PostMapping(value = "/ware/waresku/hasStock")
@@ -30,6 +31,7 @@ public interface WmsFeignService {
 
     /**
      * 查询运费和收货地址信息
+     *
      * @param addrId
      * @return
      */
@@ -39,6 +41,7 @@ public interface WmsFeignService {
 
     /**
      * 锁定库存
+     *
      * @param vo
      * @return
      */

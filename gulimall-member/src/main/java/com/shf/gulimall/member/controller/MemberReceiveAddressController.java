@@ -7,12 +7,17 @@ import com.shf.gulimall.member.service.MemberReceiveAddressService;
 import com.shf.gulimall.member.vo.MemberAddressVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
 
 
 @RestController
@@ -23,12 +28,12 @@ public class MemberReceiveAddressController {
 
 
     @PostMapping("/addLocation")
-    public R addLocation(@RequestBody MemberAddressVo memberAddressVo){
+    public R addLocation(@RequestBody MemberAddressVo memberAddressVo) {
         MemberReceiveAddressEntity addressEntity = new MemberReceiveAddressEntity();
         BeanUtils.copyProperties(memberAddressVo, addressEntity);
         addressEntity.setDefaultStatus(1);
         boolean result = memberReceiveAddressService.save(addressEntity);
-        if (result){
+        if (result) {
             return R.ok().put("data", memberAddressVo);
         } else {
             return null;
@@ -37,6 +42,7 @@ public class MemberReceiveAddressController {
 
     /**
      * 根据会员id查询会员的所有地址
+     *
      * @param memberId
      * @return
      */
@@ -54,7 +60,7 @@ public class MemberReceiveAddressController {
      */
     @RequestMapping("/list")
     //@RequiresPermissions("member:memberreceiveaddress:list")
-    public R list(@RequestParam Map<String, Object> params){
+    public R list(@RequestParam Map<String, Object> params) {
         PageUtils page = memberReceiveAddressService.queryPage(params);
 
         return R.ok().put("page", page);
@@ -66,8 +72,8 @@ public class MemberReceiveAddressController {
      */
     @RequestMapping("/info/{id}")
     //@RequiresPermissions("member:memberreceiveaddress:info")
-    public R info(@PathVariable("id") Long id){
-		MemberReceiveAddressEntity memberReceiveAddress = memberReceiveAddressService.getById(id);
+    public R info(@PathVariable("id") Long id) {
+        MemberReceiveAddressEntity memberReceiveAddress = memberReceiveAddressService.getById(id);
 
         return R.ok().put("memberReceiveAddress", memberReceiveAddress);
     }
@@ -77,8 +83,8 @@ public class MemberReceiveAddressController {
      */
     @RequestMapping("/save")
     //@RequiresPermissions("member:memberreceiveaddress:save")
-    public R save(@RequestBody MemberReceiveAddressEntity memberReceiveAddress){
-		memberReceiveAddressService.save(memberReceiveAddress);
+    public R save(@RequestBody MemberReceiveAddressEntity memberReceiveAddress) {
+        memberReceiveAddressService.save(memberReceiveAddress);
 
         return R.ok();
     }
@@ -88,8 +94,8 @@ public class MemberReceiveAddressController {
      */
     @RequestMapping("/update")
     //@RequiresPermissions("member:memberreceiveaddress:update")
-    public R update(@RequestBody MemberReceiveAddressEntity memberReceiveAddress){
-		memberReceiveAddressService.updateById(memberReceiveAddress);
+    public R update(@RequestBody MemberReceiveAddressEntity memberReceiveAddress) {
+        memberReceiveAddressService.updateById(memberReceiveAddress);
 
         return R.ok();
     }
@@ -99,8 +105,8 @@ public class MemberReceiveAddressController {
      */
     @RequestMapping("/delete")
     //@RequiresPermissions("member:memberreceiveaddress:delete")
-    public R delete(@RequestBody Long[] ids){
-		memberReceiveAddressService.removeByIds(Arrays.asList(ids));
+    public R delete(@RequestBody Long[] ids) {
+        memberReceiveAddressService.removeByIds(Arrays.asList(ids));
 
         return R.ok();
     }

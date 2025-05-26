@@ -21,10 +21,11 @@
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
         <el-button
-          v-if="isAuth('ware:purchasedetail:save')"
-          type="primary"
-          @click="addOrUpdateHandle()"
-        >新增</el-button>
+            v-if="isAuth('ware:purchasedetail:save')"
+            type="primary"
+            @click="addOrUpdateHandle()"
+        >新增
+        </el-button>
         <el-dropdown @command="handleBatchCommand" :disabled="dataListSelections.length <= 0">
           <el-button type="danger">
             批量操作
@@ -38,11 +39,11 @@
       </el-form-item>
     </el-form>
     <el-table
-      :data="dataList"
-      border
-      v-loading="dataListLoading"
-      @selection-change="selectionChangeHandle"
-      style="width: 100%;"
+        :data="dataList"
+        border
+        v-loading="dataListLoading"
+        @selection-change="selectionChangeHandle"
+        style="width: 100%;"
     >
       <el-table-column type="selection" header-align="center" align="center" width="50"></el-table-column>
       <el-table-column prop="id" header-align="center" align="center" label="id"></el-table-column>
@@ -68,13 +69,13 @@
       </el-table-column>
     </el-table>
     <el-pagination
-      @size-change="sizeChangeHandle"
-      @current-change="currentChangeHandle"
-      :current-page="pageIndex"
-      :page-sizes="[10, 20, 50, 100]"
-      :page-size="pageSize"
-      :total="totalPage"
-      layout="total, sizes, prev, pager, next, jumper"
+        @size-change="sizeChangeHandle"
+        @current-change="currentChangeHandle"
+        :current-page="pageIndex"
+        :page-sizes="[10, 20, 50, 100]"
+        :page-size="pageSize"
+        :total="totalPage"
+        layout="total, sizes, prev, pager, next, jumper"
     ></el-pagination>
     <!-- 弹窗, 新增 / 修改 -->
     <add-or-update v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
@@ -82,15 +83,15 @@
       <!-- id  assignee_id  assignee_name  phone   priority status -->
       <el-select v-model="purchaseId" placeholder="请选择" clearable filterable>
         <el-option
-          v-for="item in purchasetableData"
-          :key="item.id"
-          :label="item.id"
-          :value="item.id"
+            v-for="item in purchasetableData"
+            :key="item.id"
+            :label="item.id"
+            :value="item.id"
         >
           <span style="float: left">{{ item.id }}</span>
           <span
-            style="float: right; color: #8492a6; font-size: 13px"
-          >{{ item.assigneeName }}：{{item.phone}}</span>
+              style="float: right; color: #8492a6; font-size: 13px"
+          >{{ item.assigneeName }}：{{ item.phone }}</span>
         </el-option>
       </el-select>
       <span slot="footer" class="dialog-footer">
@@ -103,6 +104,7 @@
 
 <script>
 import AddOrUpdate from "./purchasedetail-add-or-update";
+
 export default {
   data() {
     return {
@@ -138,33 +140,34 @@ export default {
       });
       if (!this.purchaseId) {
         this.$confirm(
-          "没有选择任何【采购单】，将自动创建新单进行合并。确认吗？",
-          "提示",
-          {
-            confirmButtonText: "确定",
-            cancelButtonText: "取消",
-            type: "warning"
-          }
+            "没有选择任何【采购单】，将自动创建新单进行合并。确认吗？",
+            "提示",
+            {
+              confirmButtonText: "确定",
+              cancelButtonText: "取消",
+              type: "warning"
+            }
         )
-          .then(() => {
-            this.$http({
-              url: this.$http.adornUrl("/ware/purchase/merge"),
-              method: "post",
-              data: this.$http.adornData({ items: items }, false)
-            }).then(({ data }) => {
-              this.getDataList();
+            .then(() => {
+              this.$http({
+                url: this.$http.adornUrl("/ware/purchase/merge"),
+                method: "post",
+                data: this.$http.adornData({items: items}, false)
+              }).then(({data}) => {
+                this.getDataList();
+              });
+            })
+            .catch(() => {
             });
-          })
-          .catch(() => {});
       } else {
         this.$http({
           url: this.$http.adornUrl("/ware/purchase/merge"),
           method: "post",
           data: this.$http.adornData(
-            { purchaseId: this.purchaseId, items: items },
-            false
+              {purchaseId: this.purchaseId, items: items},
+              false
           )
-        }).then(({ data }) => {
+        }).then(({data}) => {
           this.getDataList();
         });
       }
@@ -175,7 +178,7 @@ export default {
         url: this.$http.adornUrl("/ware/purchase/unreceive/list"),
         method: "get",
         params: this.$http.adornParams({})
-      }).then(({ data }) => {
+      }).then(({data}) => {
         this.purchasetableData = data.page.list;
       });
     },
@@ -190,7 +193,8 @@ export default {
         } else {
           this.$alert("请先选择需要合并的需求", "提示", {
             confirmButtonText: "确定",
-            callback: action => {}
+            callback: action => {
+            }
           });
         }
       }
@@ -203,7 +207,7 @@ export default {
           page: 1,
           limit: 500
         })
-      }).then(({ data }) => {
+      }).then(({data}) => {
         this.wareList = data.page.list;
       });
     },
@@ -220,7 +224,7 @@ export default {
           status: this.dataForm.status,
           wareId: this.dataForm.wareId
         })
-      }).then(({ data }) => {
+      }).then(({data}) => {
         if (data && data.code === 0) {
           this.dataList = data.page.list;
           this.totalPage = data.page.totalCount;
@@ -256,24 +260,24 @@ export default {
     // 删除
     deleteHandle(id) {
       var ids = id
-        ? [id]
-        : this.dataListSelections.map(item => {
+          ? [id]
+          : this.dataListSelections.map(item => {
             return item.id;
           });
       this.$confirm(
-        `确定对[id=${ids.join(",")}]进行[${id ? "删除" : "批量删除"}]操作?`,
-        "提示",
-        {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        }
+          `确定对[id=${ids.join(",")}]进行[${id ? "删除" : "批量删除"}]操作?`,
+          "提示",
+          {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          }
       ).then(() => {
         this.$http({
           url: this.$http.adornUrl("/ware/purchasedetail/delete"),
           method: "post",
           data: this.$http.adornData(ids, false)
-        }).then(({ data }) => {
+        }).then(({data}) => {
           if (data && data.code === 0) {
             this.$message({
               message: "操作成功",

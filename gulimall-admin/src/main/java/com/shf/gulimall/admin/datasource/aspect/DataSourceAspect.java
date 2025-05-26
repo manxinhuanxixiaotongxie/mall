@@ -1,16 +1,16 @@
 /**
  * Copyright (c) 2018 人人开源 All rights reserved.
- *
+ * <p>
  * https://www.renren.io
- *
+ * <p>
  * 版权所有，侵权必究！
  */
 
 package com.shf.gulimall.admin.datasource.aspect;
 
 
-import com.shf.gulimall.admin.datasource.config.DynamicContextHolder;
 import com.shf.gulimall.admin.datasource.annotation.DataSource;
+import com.shf.gulimall.admin.datasource.config.DynamicContextHolder;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -47,13 +47,13 @@ public class DataSourceAspect {
         Class targetClass = point.getTarget().getClass();
         Method method = signature.getMethod();
 
-        DataSource targetDataSource = (DataSource)targetClass.getAnnotation(DataSource.class);
+        DataSource targetDataSource = (DataSource) targetClass.getAnnotation(DataSource.class);
         DataSource methodDataSource = method.getAnnotation(DataSource.class);
-        if(targetDataSource != null || methodDataSource != null){
+        if (targetDataSource != null || methodDataSource != null) {
             String value;
-            if(methodDataSource != null){
+            if (methodDataSource != null) {
                 value = methodDataSource.value();
-            }else {
+            } else {
                 value = targetDataSource.value();
             }
 

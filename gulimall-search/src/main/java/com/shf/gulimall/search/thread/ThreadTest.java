@@ -1,6 +1,13 @@
 package com.shf.gulimall.search.thread;
 
-import java.util.concurrent.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Description:
@@ -42,11 +49,11 @@ public class ThreadTest {
 //         submit.get();
 
         System.out.println("main......start.....");
-         CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-             System.out.println("当前线程：" + Thread.currentThread().getId());
-             int i = 10 / 2;
-             System.out.println("运行结果：" + i);
-         }, executor);
+        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+            System.out.println("当前线程：" + Thread.currentThread().getId());
+            int i = 10 / 2;
+            System.out.println("运行结果：" + i);
+        }, executor);
 
         /**
          * 方法完成后的处理

@@ -69,6 +69,7 @@ function selecCountry04(obj) {
         btn_number.disabled = false;
     }
 }
+
 /*点击确定按钮显示用户所选的地址*/
 function showAddr04() {
     addr_show_number.value = current04.prov_number + '-' + current04.city_number + '-' + current04.country_number + '-' + cityList[current04.prov_number]['city'][current04.city_number]['country'][current04.country_number]['code'];

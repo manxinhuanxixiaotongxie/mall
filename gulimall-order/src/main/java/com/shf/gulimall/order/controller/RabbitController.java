@@ -17,13 +17,13 @@ public class RabbitController {
     private RabbitTemplate rabbitTemplate;
 
     @GetMapping("/sendMq")
-    public String sendMq(@RequestParam("num") Integer num){
+    public String sendMq(@RequestParam("num") Integer num) {
         for (int i = 0; i < num; i++) {
-            if (i%2==0){
+            if (i % 2 == 0) {
                 OrderReturnReasonEntity reasonEntity = new OrderReturnReasonEntity();
                 reasonEntity.setId(1L);
                 reasonEntity.setCreateTime(new Date());
-                reasonEntity.setName("哈哈--"+i);
+                reasonEntity.setName("哈哈--" + i);
                 rabbitTemplate.convertAndSend(
                         "hello-java-exchange",
                         "hello.java",

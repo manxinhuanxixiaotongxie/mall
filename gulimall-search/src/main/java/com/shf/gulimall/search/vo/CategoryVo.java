@@ -1,6 +1,5 @@
 package com.shf.gulimall.search.vo;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 @Data

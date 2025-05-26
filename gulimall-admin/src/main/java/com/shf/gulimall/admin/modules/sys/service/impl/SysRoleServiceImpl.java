@@ -1,8 +1,8 @@
 /**
  * Copyright (c) 2016-2019 人人开源 All rights reserved.
- *
+ * <p>
  * https://www.renren.io
- *
+ * <p>
  * 版权所有，侵权必究！
  */
 
@@ -12,15 +12,15 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shf.gulimall.admin.common.exception.RRException;
+import com.shf.gulimall.admin.common.utils.Constant;
 import com.shf.gulimall.admin.common.utils.PageUtils;
+import com.shf.gulimall.admin.common.utils.Query;
 import com.shf.gulimall.admin.modules.sys.dao.SysRoleDao;
 import com.shf.gulimall.admin.modules.sys.dao.SysUserDao;
 import com.shf.gulimall.admin.modules.sys.entity.SysRoleEntity;
 import com.shf.gulimall.admin.modules.sys.service.SysRoleMenuService;
 import com.shf.gulimall.admin.modules.sys.service.SysRoleService;
 import com.shf.gulimall.admin.modules.sys.service.SysUserRoleService;
-import com.shf.gulimall.admin.common.utils.Constant;
-import com.shf.gulimall.admin.common.utils.Query;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,27 +38,27 @@ import java.util.Map;
  */
 @Service("sysRoleService")
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRoleEntity> implements SysRoleService {
-	@Autowired
-	private SysRoleMenuService sysRoleMenuService;
-	@Autowired
-	private SysUserDao sysUserDao;
+    @Autowired
+    private SysRoleMenuService sysRoleMenuService;
+    @Autowired
+    private SysUserDao sysUserDao;
     @Autowired
     private SysUserRoleService sysUserRoleService;
 
-	@Override
-	public PageUtils queryPage(Map<String, Object> params) {
-		String roleName = (String)params.get("roleName");
-		Long createUserId = (Long)params.get("createUserId");
+    @Override
+    public PageUtils queryPage(Map<String, Object> params) {
+        String roleName = (String) params.get("roleName");
+        Long createUserId = (Long) params.get("createUserId");
 
-		IPage<SysRoleEntity> page = this.page(
-			new Query<SysRoleEntity>().getPage(params),
-			new QueryWrapper<SysRoleEntity>()
-				.like(StringUtils.isNotBlank(roleName),"role_name", roleName)
-				.eq(createUserId != null,"create_user_id", createUserId)
-		);
+        IPage<SysRoleEntity> page = this.page(
+                new Query<SysRoleEntity>().getPage(params),
+                new QueryWrapper<SysRoleEntity>()
+                        .like(StringUtils.isNotBlank(roleName), "role_name", roleName)
+                        .eq(createUserId != null, "create_user_id", createUserId)
+        );
 
-		return new PageUtils(page);
-	}
+        return new PageUtils(page);
+    }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -100,25 +100,25 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleDao, SysRoleEntity> i
 
 
     @Override
-	public List<Long> queryRoleIdList(Long createUserId) {
-		return baseMapper.queryRoleIdList(createUserId);
-	}
+    public List<Long> queryRoleIdList(Long createUserId) {
+        return baseMapper.queryRoleIdList(createUserId);
+    }
 
-	/**
-	 * 检查权限是否越权
-	 */
-	private void checkPrems(SysRoleEntity role){
-		//如果不是超级管理员，则需要判断角色的权限是否超过自己的权限
-		if(role.getCreateUserId() == Constant.SUPER_ADMIN){
-			return ;
-		}
-		
-		//查询用户所拥有的菜单列表
-		List<Long> menuIdList = sysUserDao.queryAllMenuId(role.getCreateUserId());
-		
-		//判断是否越权
-		if(!menuIdList.containsAll(role.getMenuIdList())){
-			throw new RRException("新增角色的权限，已超出你的权限范围");
-		}
-	}
+    /**
+     * 检查权限是否越权
+     */
+    private void checkPrems(SysRoleEntity role) {
+        //如果不是超级管理员，则需要判断角色的权限是否超过自己的权限
+        if (role.getCreateUserId() == Constant.SUPER_ADMIN) {
+            return;
+        }
+
+        //查询用户所拥有的菜单列表
+        List<Long> menuIdList = sysUserDao.queryAllMenuId(role.getCreateUserId());
+
+        //判断是否越权
+        if (!menuIdList.containsAll(role.getMenuIdList())) {
+            throw new RRException("新增角色的权限，已超出你的权限范围");
+        }
+    }
 }

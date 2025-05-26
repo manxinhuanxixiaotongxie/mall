@@ -12,7 +12,12 @@ import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
@@ -294,7 +299,8 @@ public class MongoScanner {
             }
         }
     }
-    public  <T> List<T> mergeList(List<T> list1, List<T> list2){
+
+    public <T> List<T> mergeList(List<T> list1, List<T> list2) {
         list1.addAll(list2);
         return list1;
     }

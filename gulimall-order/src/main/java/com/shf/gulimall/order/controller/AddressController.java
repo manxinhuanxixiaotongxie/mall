@@ -14,7 +14,7 @@ public class AddressController {
     private MemberFeignService memberFeignService;
 
     @PostMapping("/addLocation")
-    public R addLocation(@RequestBody MemberAddressVo memberAddressVo){
+    public R addLocation(@RequestBody MemberAddressVo memberAddressVo) {
         return memberFeignService.addLocation(memberAddressVo);
     }
 }

@@ -26,7 +26,7 @@ import java.util.Map;
 @RestController
 public class OssController {
 
-//    @RequestMapping("/oss/policy")
+    //    @RequestMapping("/oss/policy")
     public R policy() {
 
         //https://gulimall-clouds.oss-cn-beijing.aliyuncs.com/iqiyi.png
@@ -75,9 +75,8 @@ public class OssController {
         } finally {
             ossClient.shutdown();
         }
-        return R.ok().put("data",respMap);
+        return R.ok().put("data", respMap);
     }
-
 
 
     @Value("${qiniu.ak}")
@@ -94,6 +93,6 @@ public class OssController {
         String upToken = auth.uploadToken(QINIU_BUCKET);
         LinkedHashMap<String, String> respMap = new LinkedHashMap<String, String>();
         respMap.put("upToken", upToken);
-        return R.ok().put("data",respMap);
+        return R.ok().put("data", respMap);
     }
 }

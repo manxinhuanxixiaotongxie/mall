@@ -57,7 +57,7 @@ export default {
       },
       dataRule: {
         title: [
-          { required: true, message: "活动标题不能为空", trigger: "blur" }
+          {required: true, message: "活动标题不能为空", trigger: "blur"}
         ]
       }
     };
@@ -75,7 +75,7 @@ export default {
             ),
             method: "get",
             params: this.$http.adornParams()
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.dataForm.title = data.seckillPromotion.title;
               this.dataForm.startTime = data.seckillPromotion.startTime;
@@ -108,7 +108,7 @@ export default {
               endTime: this.dataForm.timeRange[1],
               status: this.dataForm.status
             })
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
                 message: "操作成功",

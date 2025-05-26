@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shf.common.utils.PageUtils;
 import com.shf.common.utils.Query;
+import com.shf.gulimall.product.dao.SpuImagesDao;
 import com.shf.gulimall.product.entity.SpuImagesEntity;
 import com.shf.gulimall.product.service.SpuImagesService;
-import com.shf.gulimall.product.dao.SpuImagesDao;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

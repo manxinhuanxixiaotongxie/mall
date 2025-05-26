@@ -5,12 +5,12 @@ import com.alibaba.fastjson.TypeReference;
 import com.shf.common.utils.R;
 import com.shf.gulimall.cart.exception.CartExceptionHandler;
 import com.shf.gulimall.cart.feign.ProductFeignService;
+import com.shf.gulimall.cart.interceptor.CartInterceptor;
+import com.shf.gulimall.cart.service.CartService;
 import com.shf.gulimall.cart.to.UserInfoTo;
 import com.shf.gulimall.cart.vo.CartItemVo;
 import com.shf.gulimall.cart.vo.CartVo;
 import com.shf.gulimall.cart.vo.SkuInfoVo;
-import com.shf.gulimall.cart.interceptor.CartInterceptor;
-import com.shf.gulimall.cart.service.CartService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +65,8 @@ public class CartServiceImpl implements CartService {
             CompletableFuture<Void> getSkuInfoFuture = CompletableFuture.runAsync(() -> {
                 //1、远程查询当前要添加商品的信息
                 R productSkuInfo = productFeignService.getInfo(skuId);
-                SkuInfoVo skuInfo = productSkuInfo.getData("skuInfo", new TypeReference<SkuInfoVo>() {});
+                SkuInfoVo skuInfo = productSkuInfo.getData("skuInfo", new TypeReference<SkuInfoVo>() {
+                });
                 //数据赋值操作
                 cartItemVo.setSkuId(skuInfo.getSkuId());
                 cartItemVo.setTitle(skuInfo.getSkuTitle());
@@ -94,7 +95,7 @@ public class CartServiceImpl implements CartService {
             cartItemVo.setCount(cartItemVo.getCount() + num);
             //修改redis的数据
             String cartItemJson = JSON.toJSONString(cartItemVo);
-            cartOps.put(skuId.toString(),cartItemJson);
+            cartOps.put(skuId.toString(), cartItemJson);
 
             return cartItemVo;
         }
@@ -114,6 +115,7 @@ public class CartServiceImpl implements CartService {
 
     /**
      * 获取用户登录或者未登录购物车里所有的数据
+     *
      * @return
      * @throws ExecutionException
      * @throws InterruptedException
@@ -135,7 +137,7 @@ public class CartServiceImpl implements CartService {
             if (tempCartItems != null) {
                 //临时购物车有数据需要进行合并操作
                 for (CartItemVo item : tempCartItems) {
-                    addToCart(item.getSkuId(),item.getCount());
+                    addToCart(item.getSkuId(), item.getCount());
                 }
                 //清除临时购物车的数据
                 clearCartInfo(temptCartKey);
@@ -158,6 +160,7 @@ public class CartServiceImpl implements CartService {
 
     /**
      * 获取到我们要操作的购物车
+     *
      * @return
      */
     private BoundHashOperations<String, Object, Object> getCartOps() {
@@ -181,6 +184,7 @@ public class CartServiceImpl implements CartService {
 
     /**
      * 获取购物车里面的数据
+     *
      * @param cartKey
      * @return
      */
@@ -211,18 +215,19 @@ public class CartServiceImpl implements CartService {
         //查询购物车里面的商品
         CartItemVo cartItem = getCartItem(skuId);
         //修改商品状态
-        cartItem.setCheck(check == 1?true:false);
+        cartItem.setCheck(check == 1 ? true : false);
 
         //序列化存入redis中
         String redisValue = JSON.toJSONString(cartItem);
 
         BoundHashOperations<String, Object, Object> cartOps = getCartOps();
-        cartOps.put(skuId.toString(),redisValue);
+        cartOps.put(skuId.toString(), redisValue);
 
     }
 
     /**
      * 修改购物项数量
+     *
      * @param skuId
      * @param num
      */
@@ -236,12 +241,13 @@ public class CartServiceImpl implements CartService {
         BoundHashOperations<String, Object, Object> cartOps = getCartOps();
         //序列化存入redis中
         String redisValue = JSON.toJSONString(cartItem);
-        cartOps.put(skuId.toString(),redisValue);
+        cartOps.put(skuId.toString(), redisValue);
     }
 
 
     /**
      * 删除购物项
+     *
      * @param skuId
      */
     @Override

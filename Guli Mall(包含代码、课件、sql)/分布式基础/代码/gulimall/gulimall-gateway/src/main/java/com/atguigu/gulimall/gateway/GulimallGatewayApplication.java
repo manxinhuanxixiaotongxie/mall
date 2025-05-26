@@ -14,7 +14,7 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 
 /**
  * 1、开启服务注册发现
- *  (配置nacos的注册中心地址)
+ * (配置nacos的注册中心地址)
  * 2、编写网关配置文件
  */
 

@@ -54,15 +54,15 @@ export default {
         addOther: ""
       },
       dataRule: {
-        skuId: [{ required: true, message: "sku_id不能为空", trigger: "blur" }],
+        skuId: [{required: true, message: "sku_id不能为空", trigger: "blur"}],
         memberLevelId: [
-          { required: true, message: "会员等级id不能为空", trigger: "blur" }
+          {required: true, message: "会员等级id不能为空", trigger: "blur"}
         ],
         memberLevelName: [
-          { required: true, message: "会员等级名不能为空", trigger: "blur" }
+          {required: true, message: "会员等级名不能为空", trigger: "blur"}
         ],
         memberPrice: [
-          { required: true, message: "会员对应价格不能为空", trigger: "blur" }
+          {required: true, message: "会员对应价格不能为空", trigger: "blur"}
         ],
         addOther: [
           {
@@ -87,7 +87,7 @@ export default {
             ),
             method: "get",
             params: this.$http.adornParams()
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.dataForm.skuId = data.memberPrice.skuId;
               this.dataForm.memberLevelId = data.memberPrice.memberLevelId;
@@ -116,7 +116,7 @@ export default {
               memberPrice: this.dataForm.memberPrice,
               addOther: this.dataForm.addOther
             })
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
                 message: "操作成功",

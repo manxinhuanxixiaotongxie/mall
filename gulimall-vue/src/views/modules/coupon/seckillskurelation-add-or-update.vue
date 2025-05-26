@@ -55,20 +55,20 @@ export default {
       },
       dataRule: {
         sessionId: [
-          { required: true, message: "活动场次id不能为空", trigger: "blur" }
+          {required: true, message: "活动场次id不能为空", trigger: "blur"}
         ],
-        skuId: [{ required: true, message: "商品id不能为空", trigger: "blur" }],
+        skuId: [{required: true, message: "商品id不能为空", trigger: "blur"}],
         seckillPrice: [
-          { required: true, message: "秒杀价格不能为空", trigger: "blur" }
+          {required: true, message: "秒杀价格不能为空", trigger: "blur"}
         ],
         seckillCount: [
-          { required: true, message: "秒杀总量不能为空", trigger: "blur" }
+          {required: true, message: "秒杀总量不能为空", trigger: "blur"}
         ],
         seckillLimit: [
-          { required: true, message: "每人限购数量不能为空", trigger: "blur" }
+          {required: true, message: "每人限购数量不能为空", trigger: "blur"}
         ],
         seckillSort: [
-          { required: true, message: "排序不能为空", trigger: "blur" }
+          {required: true, message: "排序不能为空", trigger: "blur"}
         ]
       }
     };
@@ -92,7 +92,7 @@ export default {
             ),
             method: "get",
             params: this.$http.adornParams()
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.dataForm.promotionId = data.seckillSkuRelation.promotionId;
               this.dataForm.promotionSessionId =
@@ -128,7 +128,7 @@ export default {
               seckillLimit: this.dataForm.seckillLimit,
               seckillSort: this.dataForm.seckillSort
             })
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
                 message: "操作成功",

@@ -1,7 +1,5 @@
 package com.shf.gulimall.search.thread;
 
-import io.netty.util.concurrent.CompleteFuture;
-
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -21,7 +19,8 @@ public class Demo {
 //                    System.out.println("异步任务完成了...结果是:" + res + ",异常是:" + exception);
 //                })
 //                .exceptionally(throwable -> {
-////                    感知异常,同时返回默认值
+
+    /// /                    感知异常,同时返回默认值
 //                    return 10;
 //                })
 //                .handle((res,thr)->{
@@ -36,7 +35,6 @@ public class Demo {
 //        Integer integer = future.get();
 //        System.out.println("main...end...,结果是:"+integer);
 //    }
-
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         CompletableFuture<Integer> future01 = CompletableFuture.supplyAsync(() -> {
             System.out.println("future01线程:" + Thread.currentThread().getId());

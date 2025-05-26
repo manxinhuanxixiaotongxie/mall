@@ -1,9 +1,9 @@
 <template>
   <el-dialog
-    :title="!dataForm.id ? '新增' : '修改'"
-    :close-on-click-modal="false"
-    :visible.sync="visible"
-    @closed="dialogClose"
+      :title="!dataForm.id ? '新增' : '修改'"
+      :close-on-click-modal="false"
+      :visible.sync="visible"
+      @closed="dialogClose"
   >
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" label-width="120px">
       <!--       @keyup.enter.native="dataFormSubmit()" -->
@@ -19,23 +19,23 @@
 
       <el-form-item label="值类型" prop="valueType">
         <el-switch
-          v-model="dataForm.valueType"
-          active-text="允许多个值"
-          inactive-text="只能单个值"
-          active-color="#13ce66"
-          inactive-color="#ff4949"
-          :inactive-value="0"
-          :active-value="1"
+            v-model="dataForm.valueType"
+            active-text="允许多个值"
+            inactive-text="只能单个值"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+            :inactive-value="0"
+            :active-value="1"
         ></el-switch>
       </el-form-item>
       <el-form-item label="可选值" prop="valueSelect">
         <!-- <el-input v-model="dataForm.valueSelect"></el-input> -->
         <el-select
-          v-model="dataForm.valueSelect"
-          multiple
-          filterable
-          allow-create
-          placeholder="请输入内容"
+            v-model="dataForm.valueSelect"
+            multiple
+            filterable
+            allow-create
+            placeholder="请输入内容"
         ></el-select>
       </el-form-item>
       <el-form-item label="属性图标" prop="icon">
@@ -47,38 +47,38 @@
       <el-form-item label="所属分组" prop="attrGroupId" v-if="type == 1">
         <el-select ref="groupSelect" v-model="dataForm.attrGroupId" placeholder="请选择">
           <el-option
-            v-for="item in attrGroups"
-            :key="item.attrGroupId"
-            :label="item.attrGroupName"
-            :value="item.attrGroupId"
+              v-for="item in attrGroups"
+              :key="item.attrGroupId"
+              :label="item.attrGroupName"
+              :value="item.attrGroupId"
           ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="可检索" prop="searchType" v-if="type == 1">
         <el-switch
-          v-model="dataForm.searchType"
-          active-color="#13ce66"
-          inactive-color="#ff4949"
-          :active-value="1"
-          :inactive-value="0"
+            v-model="dataForm.searchType"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+            :active-value="1"
+            :inactive-value="0"
         ></el-switch>
       </el-form-item>
       <el-form-item label="快速展示" prop="showDesc" v-if="type == 1">
         <el-switch
-          v-model="dataForm.showDesc"
-          active-color="#13ce66"
-          inactive-color="#ff4949"
-          :active-value="1"
-          :inactive-value="0"
+            v-model="dataForm.showDesc"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+            :active-value="1"
+            :inactive-value="0"
         ></el-switch>
       </el-form-item>
       <el-form-item label="启用状态" prop="enable">
         <el-switch
-          v-model="dataForm.enable"
-          active-color="#13ce66"
-          inactive-color="#ff4949"
-          :active-value="1"
-          :inactive-value="0"
+            v-model="dataForm.enable"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+            :active-value="1"
+            :inactive-value="0"
         ></el-switch>
       </el-form-item>
     </el-form>
@@ -91,6 +91,7 @@
 
 <script>
 import CategoryCascader from "../common/category-cascader";
+
 export default {
   data() {
     return {
@@ -112,7 +113,7 @@ export default {
       attrGroups: [],
       dataRule: {
         attrName: [
-          { required: true, message: "属性名不能为空", trigger: "blur" }
+          {required: true, message: "属性名不能为空", trigger: "blur"}
         ],
         searchType: [
           {
@@ -129,7 +130,7 @@ export default {
           }
         ],
         icon: [
-          { required: true, message: "属性图标不能为空", trigger: "blur" }
+          {required: true, message: "属性图标不能为空", trigger: "blur"}
         ],
         attrType: [
           {
@@ -162,8 +163,8 @@ export default {
       }
     };
   },
-  props:{
-    type:{
+  props: {
+    type: {
       type: Number,
       default: 1
     }
@@ -178,11 +179,11 @@ export default {
       if (path && path.length == 3) {
         this.$http({
           url: this.$http.adornUrl(
-            `/product/attrgroup/list/${path[path.length - 1]}`
+              `/product/attrgroup/list/${path[path.length - 1]}`
           ),
           method: "get",
-          params: this.$http.adornParams({ page: 1, limit: 10000000 })
-        }).then(({ data }) => {
+          params: this.$http.adornParams({page: 1, limit: 10000000})
+        }).then(({data}) => {
           if (data && data.code === 0) {
             this.attrGroups = data.page.list;
           } else {
@@ -197,7 +198,7 @@ export default {
       }
     }
   },
-  components: { CategoryCascader },
+  components: {CategoryCascader},
   methods: {
     init(id) {
       this.dataForm.attrId = id || 0;
@@ -208,11 +209,11 @@ export default {
         if (this.dataForm.attrId) {
           this.$http({
             url: this.$http.adornUrl(
-              `/product/attr/info/${this.dataForm.attrId}`
+                `/product/attr/info/${this.dataForm.attrId}`
             ),
             method: "get",
             params: this.$http.adornParams()
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.dataForm.attrName = data.attr.attrName;
               this.dataForm.searchType = data.attr.searchType;
@@ -240,7 +241,7 @@ export default {
         if (valid) {
           this.$http({
             url: this.$http.adornUrl(
-              `/product/attr/${!this.dataForm.attrId ? "save" : "update"}`
+                `/product/attr/${!this.dataForm.attrId ? "save" : "update"}`
             ),
             method: "post",
             data: this.$http.adornData({
@@ -256,7 +257,7 @@ export default {
               attrGroupId: this.dataForm.attrGroupId,
               showDesc: this.dataForm.showDesc
             })
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
                 message: "操作成功",

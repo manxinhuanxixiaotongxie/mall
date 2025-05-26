@@ -8,16 +8,18 @@
     <link rel="stylesheet" href="/static/order/pay/css/style.css">
     <script src="/static/order/pay/js/jquery-3.1.1.min.js" charset="utf-8"></script>
     <style>
-        fieldset{
+        fieldset {
             width: 700px;
         }
-        label{
+
+        label {
             width: 250px;
             text-align: right;
             height: 40px;
             line-height: 40px;
         }
-        button{
+
+        button {
             width: 80px;
             height: 30px;
             border-radius: 4px;
@@ -59,7 +61,7 @@
             </div>
             <button type="button" class="btn met2">确定</button>
         </fieldset>
-        <fieldset  style="margin: 20px auto">
+        <fieldset style="margin: 20px auto">
             <legend>请填写收货人信息：</legend>
             <div>
                 <label>收货人：</label>
@@ -91,7 +93,6 @@
     var titleWrap = document.getElementById('title-wrap').getElementsByTagName('LI');
     var addrWrap = document.getElementById('addr-wrap');   //省市区显示模块
     var btn2 = document.getElementsByClassName('met2')[0];  //确定按钮
-
 
 
     var current2 = {
@@ -217,7 +218,7 @@
     };
 
     function addArea() {
-        let data= {
+        let data = {
             memberId: [[${session.loginUser.id}]],
             province: current2.provVal,
             city: current2.cityVal,
@@ -232,11 +233,11 @@
             url: "/addLocation",
             data: JSON.stringify(data),
             dataType: 'json',
-            success: function(result) {
+            success: function (result) {
                 console.log(result)
-                if(result.code == 0) {
+                if (result.code == 0) {
                     alert('添加收货地址成功！');
-                    window.location.href='/toTrade'
+                    window.location.href = '/toTrade'
                 } else {
                     alert('添加收货地址失败！');
                 }

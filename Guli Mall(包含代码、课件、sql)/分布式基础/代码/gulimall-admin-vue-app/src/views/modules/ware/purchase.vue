@@ -19,13 +19,15 @@
           v-if="isAuth('ware:purchase:save')"
           type="primary"
           @click="addOrUpdateHandle()"
-        >新增</el-button>
+        >新增
+        </el-button>
         <el-button
           v-if="isAuth('ware:purchase:delete')"
           type="danger"
           @click="deleteHandle()"
           :disabled="dataListSelections.length <= 0"
-        >批量删除</el-button>
+        >批量删除
+        </el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -61,7 +63,8 @@
             size="small"
             v-if="scope.row.status==0||scope.row.status==1"
             @click="opendrawer(scope.row)"
-          >分配</el-button>
+          >分配
+          </el-button>
           <el-button type="text" size="small" @click="addOrUpdateHandle(scope.row.id)">修改</el-button>
           <el-button type="text" size="small" @click="deleteHandle(scope.row.id)">删除</el-button>
         </template>
@@ -97,6 +100,7 @@
 
 <script>
 import AddOrUpdate from "./purchase-add-or-update";
+
 export default {
   data() {
     return {
@@ -124,10 +128,10 @@ export default {
     this.getDataList();
   },
   created() {
-    
+
   },
   methods: {
-    opendrawer(row){
+    opendrawer(row) {
       this.getUserList();
       this.currentRow = row;
       this.caigoudialogVisible = true;
@@ -135,9 +139,9 @@ export default {
     assignUser() {
       let _this = this;
       let user = {};
-      this.userList.forEach(item=>{
-        if(item.userId == _this.userId){
-            user = item;
+      this.userList.forEach(item => {
+        if (item.userId == _this.userId) {
+          user = item;
         }
       });
       this.caigoudialogVisible = false;
@@ -153,14 +157,14 @@ export default {
           phone: user.mobile,
           status: 1
         })
-      }).then(({ data }) => {
+      }).then(({data}) => {
         if (data && data.code === 0) {
           this.$message({
             message: "操作成功",
             type: "success",
             duration: 1500
           });
-          
+
           this.userId = "";
           this.getDataList();
         } else {
@@ -176,7 +180,7 @@ export default {
           page: 1,
           limit: 500
         })
-      }).then(({ data }) => {
+      }).then(({data}) => {
         this.userList = data.page.list;
       });
     },
@@ -191,7 +195,7 @@ export default {
           limit: this.pageSize,
           key: this.dataForm.key
         })
-      }).then(({ data }) => {
+      }).then(({data}) => {
         if (data && data.code === 0) {
           this.dataList = data.page.list;
           this.totalPage = data.page.totalCount;
@@ -229,8 +233,8 @@ export default {
       var ids = id
         ? [id]
         : this.dataListSelections.map(item => {
-            return item.id;
-          });
+          return item.id;
+        });
       this.$confirm(
         `确定对[id=${ids.join(",")}]进行[${id ? "删除" : "批量删除"}]操作?`,
         "提示",
@@ -244,7 +248,7 @@ export default {
           url: this.$http.adornUrl("/ware/purchase/delete"),
           method: "post",
           data: this.$http.adornData(ids, false)
-        }).then(({ data }) => {
+        }).then(({data}) => {
           if (data && data.code === 0) {
             this.$message({
               message: "操作成功",

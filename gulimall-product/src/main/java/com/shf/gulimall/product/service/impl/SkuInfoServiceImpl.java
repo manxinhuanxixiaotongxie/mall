@@ -8,11 +8,15 @@ import com.shf.common.utils.PageUtils;
 import com.shf.common.utils.Query;
 import com.shf.common.utils.R;
 import com.shf.gulimall.product.dao.SkuInfoDao;
-import com.shf.gulimall.product.entity.SkuInfoEntity;
-import com.shf.gulimall.product.feign.SeckillFeignService;
-import com.shf.gulimall.product.service.*;
 import com.shf.gulimall.product.entity.SkuImagesEntity;
+import com.shf.gulimall.product.entity.SkuInfoEntity;
 import com.shf.gulimall.product.entity.SpuInfoDescEntity;
+import com.shf.gulimall.product.feign.SeckillFeignService;
+import com.shf.gulimall.product.service.AttrGroupService;
+import com.shf.gulimall.product.service.SkuImagesService;
+import com.shf.gulimall.product.service.SkuInfoService;
+import com.shf.gulimall.product.service.SkuSaleAttrValueService;
+import com.shf.gulimall.product.service.SpuInfoDescService;
 import com.shf.gulimall.product.vo.SeckillSkuVo;
 import com.shf.gulimall.product.vo.SkuItemSaleAttrVo;
 import com.shf.gulimall.product.vo.SkuItemVo;
@@ -74,23 +78,23 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
         String key = (String) params.get("key");
         if (!StringUtils.isEmpty(key) && !"0".equalsIgnoreCase(key)) {
             queryWrapper.and((wrapper) -> {
-                wrapper.eq("sku_id",key).or().like("sku_name",key);
+                wrapper.eq("sku_id", key).or().like("sku_name", key);
             });
         }
 
         String catelogId = (String) params.get("catelogId");
         if (!StringUtils.isEmpty(catelogId) && !"0".equalsIgnoreCase(catelogId)) {
-            queryWrapper.eq("catalog_id",catelogId);
+            queryWrapper.eq("catalog_id", catelogId);
         }
 
         String brandId = (String) params.get("brandId");
         if (!StringUtils.isEmpty(brandId) && !"0".equalsIgnoreCase(brandId)) {
-            queryWrapper.eq("brand_id",brandId);
+            queryWrapper.eq("brand_id", brandId);
         }
 
         String min = (String) params.get("min");
         if (!StringUtils.isEmpty(min)) {
-            queryWrapper.ge("price",min);
+            queryWrapper.ge("price", min);
         }
 
         String max = (String) params.get("max");
@@ -99,7 +103,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
             try {
                 BigDecimal bigDecimal = new BigDecimal(max);
                 if (bigDecimal.compareTo(BigDecimal.ZERO) == 1) {
-                    queryWrapper.le("price",max);
+                    queryWrapper.le("price", max);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -178,7 +182,8 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
             R skuSeckilInfo = seckillFeignService.getSkuSeckilInfo(skuId);
             if (skuSeckilInfo.getCode() == 0) {
                 //查询成功
-                SeckillSkuVo seckilInfoData = skuSeckilInfo.getData("data", new TypeReference<SeckillSkuVo>() {});
+                SeckillSkuVo seckilInfoData = skuSeckilInfo.getData("data", new TypeReference<SeckillSkuVo>() {
+                });
                 skuItemVo.setSeckillSkuVo(seckilInfoData);
 
                 if (seckilInfoData != null) {
@@ -193,7 +198,7 @@ public class SkuInfoServiceImpl extends ServiceImpl<SkuInfoDao, SkuInfoEntity> i
 
         //等到所有任务都完成
         CompletableFuture
-                .allOf(saleAttrFuture,descFuture,baseAttrFuture,imageFuture,seckillFuture)
+                .allOf(saleAttrFuture, descFuture, baseAttrFuture, imageFuture, seckillFuture)
                 .get();
 
         return skuItemVo;

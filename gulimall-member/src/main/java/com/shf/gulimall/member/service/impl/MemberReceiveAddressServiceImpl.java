@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shf.common.utils.PageUtils;
 import com.shf.common.utils.Query;
+import com.shf.gulimall.member.dao.MemberReceiveAddressDao;
 import com.shf.gulimall.member.entity.MemberReceiveAddressEntity;
 import com.shf.gulimall.member.service.MemberReceiveAddressService;
-import com.shf.gulimall.member.dao.MemberReceiveAddressDao;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

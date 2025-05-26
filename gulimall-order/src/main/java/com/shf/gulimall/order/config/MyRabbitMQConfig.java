@@ -1,13 +1,12 @@
 package com.shf.gulimall.order.config;
 
-import com.rabbitmq.client.Channel;
-import com.shf.gulimall.order.entity.OrderEntity;
-import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.Exchange;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.IOException;
 import java.util.HashMap;
 
 
@@ -34,7 +33,8 @@ public class MyRabbitMQConfig {
      * 死信队列
      *
      * @return
-     */@Bean
+     */
+    @Bean
     public Queue orderDelayQueue() {
         /*
             Queue(String name,  队列名字
@@ -111,6 +111,7 @@ public class MyRabbitMQConfig {
 
     /**
      * 订单释放直接和库存释放进行绑定
+     *
      * @return
      */
     @Bean
@@ -126,6 +127,7 @@ public class MyRabbitMQConfig {
 
     /**
      * 商品秒杀队列
+     *
      * @return
      */
     @Bean

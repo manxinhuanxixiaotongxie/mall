@@ -16,13 +16,14 @@
       <i class="el-icon-plus"></i>
     </el-upload>
     <el-dialog :visible.sync="dialogVisible">
-      <img width="100%" :src="dialogImageUrl" alt />
+      <img width="100%" :src="dialogImageUrl" alt/>
     </el-dialog>
   </div>
 </template>
 <script>
-import { policy } from "./policy";
-import { getUUID } from '@/utils'
+import {policy} from "./policy";
+import {getUUID} from '@/utils'
+
 export default {
   name: "multiUpload",
   props: {
@@ -33,11 +34,11 @@ export default {
       type: Number,
       default: 30
     },
-    listType:{
+    listType: {
       type: String,
       default: "picture-card"
     },
-    showFile:{
+    showFile: {
       type: Boolean,
       default: true
     }
@@ -53,7 +54,7 @@ export default {
         dir: "",
         host: "",
         uuid: "",
-        token:''
+        token: ''
       },
       dialogVisible: false,
       dialogImageUrl: null
@@ -63,13 +64,14 @@ export default {
     fileList() {
       let fileList = [];
       for (let i = 0; i < this.value.length; i++) {
-        fileList.push({ url: this.value[i] });
+        fileList.push({url: this.value[i]});
       }
 
       return fileList;
     }
   },
-  mounted() {},
+  mounted() {
+  },
   methods: {
     emitInput(fileList) {
       let value = [];
@@ -98,11 +100,11 @@ export default {
             // _self.dataObj.dir = response.data.dir;
             // _self.dataObj.host = response.data.host;
             _self.dataObj.token = response.data.upToken;
-            _self.dataObj.key = getUUID()+'_'+file.name;
+            _self.dataObj.key = getUUID() + '_' + file.name;
             resolve(true);
           })
           .catch(err => {
-            console.log("出错了...",err)
+            console.log("出错了...", err)
             reject(false);
           });
       });
@@ -112,7 +114,7 @@ export default {
         name: file.name,
         // url: this.dataObj.host + "/" + this.dataObj.dir + "/" + file.name； 替换${filename}为真正的文件名
         // url: this.dataObj.host + "/" + this.dataObj.key.replace("${filename}",file.name)
-        url: "http://rcsucl8tn.hn-bkt.clouddn.com/"+this.dataObj.key
+        url: "http://rcsucl8tn.hn-bkt.clouddn.com/" + this.dataObj.key
       });
       this.emitInput(this.fileList);
     },

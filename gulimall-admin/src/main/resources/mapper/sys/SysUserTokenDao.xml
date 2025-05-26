@@ -3,7 +3,9 @@
 
 <mapper namespace="com.shf.gulimall.admin.modules.sys.dao.SysUserTokenDao">
 
-	<select id="queryByToken" resultType="com.shf.gulimall.admin.modules.sys.entity.SysUserTokenEntity">
-		select * from sys_user_token where token = #{value}
-	</select>
+    <select id="queryByToken" resultType="com.shf.gulimall.admin.modules.sys.entity.SysUserTokenEntity">
+        select *
+        from sys_user_token
+        where token = #{value}
+    </select>
 </mapper>

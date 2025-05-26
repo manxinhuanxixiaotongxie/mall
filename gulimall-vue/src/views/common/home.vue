@@ -5,7 +5,8 @@
       type="warning"
       :closable="false">
       <div slot-scope="description">
-        <p class="el-alert__description">1. 此Demo只提供ECharts官方使用文档，入门部署和体验功能。具体使用请参考：http://echarts.baidu.com/index.html</p>
+        <p class="el-alert__description">1.
+          此Demo只提供ECharts官方使用文档，入门部署和体验功能。具体使用请参考：http://echarts.baidu.com/index.html</p>
       </div>
     </el-alert>
 
@@ -36,8 +37,9 @@
 
 <script>
 import echarts from 'echarts'
+
 export default {
-  data () {
+  data() {
     return {
       chartLine: null,
       chartBar: null,
@@ -45,13 +47,13 @@ export default {
       chartScatter: null
     }
   },
-  mounted () {
+  mounted() {
     this.initChartLine()
     this.initChartBar()
     this.initChartPie()
     this.initChartScatter()
   },
-  activated () {
+  activated() {
     // 由于给echart添加了resize事件, 在组件激活时需要重新resize绘画一次, 否则出现空白bug
     if (this.chartLine) {
       this.chartLine.resize()
@@ -68,7 +70,7 @@ export default {
   },
   methods: {
     // 折线图
-    initChartLine () {
+    initChartLine() {
       var option = {
         'title': {
           'text': '折线图堆叠'
@@ -77,7 +79,7 @@ export default {
           'trigger': 'axis'
         },
         'legend': {
-          'data': [ '邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎' ]
+          'data': ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
         },
         'grid': {
           'left': '3%',
@@ -87,13 +89,13 @@ export default {
         },
         'toolbox': {
           'feature': {
-            'saveAsImage': { }
+            'saveAsImage': {}
           }
         },
         'xAxis': {
           'type': 'category',
           'boundaryGap': false,
-          'data': [ '周一', '周二', '周三', '周四', '周五', '周六', '周日' ]
+          'data': ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
         },
         'yAxis': {
           'type': 'value'
@@ -103,31 +105,31 @@ export default {
             'name': '邮件营销',
             'type': 'line',
             'stack': '总量',
-            'data': [ 120, 132, 101, 134, 90, 230, 210 ]
+            'data': [120, 132, 101, 134, 90, 230, 210]
           },
           {
             'name': '联盟广告',
             'type': 'line',
             'stack': '总量',
-            'data': [ 220, 182, 191, 234, 290, 330, 310 ]
+            'data': [220, 182, 191, 234, 290, 330, 310]
           },
           {
             'name': '视频广告',
             'type': 'line',
             'stack': '总量',
-            'data': [ 150, 232, 201, 154, 190, 330, 410 ]
+            'data': [150, 232, 201, 154, 190, 330, 410]
           },
           {
             'name': '直接访问',
             'type': 'line',
             'stack': '总量',
-            'data': [ 320, 332, 301, 334, 390, 330, 320 ]
+            'data': [320, 332, 301, 334, 390, 330, 320]
           },
           {
             'name': '搜索引擎',
             'type': 'line',
             'stack': '总量',
-            'data': [ 820, 932, 901, 934, 1290, 1330, 1320 ]
+            'data': [820, 932, 901, 934, 1290, 1330, 1320]
           }
         ]
       }
@@ -138,7 +140,7 @@ export default {
       })
     },
     // 柱状图
-    initChartBar () {
+    initChartBar() {
       var option = {
         tooltip: {
           trigger: 'axis',
@@ -201,7 +203,7 @@ export default {
                 }
               },
               data: [
-                [{ type: 'min' }, { type: 'max' }]
+                [{type: 'min'}, {type: 'max'}]
               ]
             }
           },
@@ -239,7 +241,7 @@ export default {
       })
     },
     // 饼状图
-    initChartPie () {
+    initChartPie() {
       var option = {
         backgroundColor: '#2c343c',
         title: {
@@ -269,12 +271,14 @@ export default {
             radius: '55%',
             center: ['50%', '50%'],
             data: [
-              { value: 335, name: '直接访问' },
-              { value: 310, name: '邮件营销' },
-              { value: 274, name: '联盟广告' },
-              { value: 235, name: '视频广告' },
-              { value: 400, name: '搜索引擎' }
-            ].sort(function (a, b) { return a.value - b.value }),
+              {value: 335, name: '直接访问'},
+              {value: 310, name: '邮件营销'},
+              {value: 274, name: '联盟广告'},
+              {value: 235, name: '视频广告'},
+              {value: 400, name: '搜索引擎'}
+            ].sort(function (a, b) {
+              return a.value - b.value
+            }),
             roseType: 'radius',
             label: {
               normal: {
@@ -315,11 +319,11 @@ export default {
       })
     },
     // 散点图
-    initChartScatter () {
+    initChartScatter() {
       var option = {
         backgroundColor: new echarts.graphic.RadialGradient(0.3, 0.3, 0.8, [
-          { offset: 0, color: '#f7f8fa' },
-          { offset: 1, color: '#cdd0d5' }
+          {offset: 0, color: '#f7f8fa'},
+          {offset: 1, color: '#cdd0d5'}
         ]),
         title: {
           text: '1990 与 2015 年各国家人均寿命与 GDP'
@@ -386,8 +390,8 @@ export default {
                 shadowColor: 'rgba(120, 36, 50, 0.5)',
                 shadowOffsetY: 5,
                 color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [
-                  { offset: 0, color: 'rgb(251, 118, 123)' },
-                  { offset: 1, color: 'rgb(204, 46, 72)' }
+                  {offset: 0, color: 'rgb(251, 118, 123)'},
+                  {offset: 1, color: 'rgb(204, 46, 72)'}
                 ])
               }
             }
@@ -434,8 +438,8 @@ export default {
                 shadowColor: 'rgba(25, 100, 150, 0.5)',
                 shadowOffsetY: 5,
                 color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [
-                  { offset: 0, color: 'rgb(129, 227, 238)' },
-                  { offset: 1, color: 'rgb(25, 183, 207)' }
+                  {offset: 0, color: 'rgb(129, 227, 238)'},
+                  {offset: 1, color: 'rgb(25, 183, 207)'}
                 ])
               }
             }
@@ -457,14 +461,17 @@ export default {
   > .el-alert {
     margin-bottom: 10px;
   }
+
   > .el-row {
     margin-top: -10px;
     margin-bottom: -10px;
+
     .el-col {
       padding-top: 10px;
       padding-bottom: 10px;
     }
   }
+
   .chart-box {
     min-height: 400px;
   }

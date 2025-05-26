@@ -10,13 +10,15 @@
           v-if="isAuth('coupon:seckillskurelation:save')"
           type="primary"
           @click="addOrUpdateHandle()"
-        >新增</el-button>
+        >新增
+        </el-button>
         <el-button
           v-if="isAuth('coupon:seckillskurelation:delete')"
           type="danger"
           @click="deleteHandle()"
           :disabled="dataListSelections.length <= 0"
-        >批量删除</el-button>
+        >批量删除
+        </el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -57,13 +59,15 @@
     ></el-pagination>
     <!-- 弹窗, 新增 / 修改 -->
     <div>
-      <add-or-update :sessionId="promotionSessionId" v-if="addOrUpdateVisible" ref="addOrUpdate" @refreshDataList="getDataList"></add-or-update>
+      <add-or-update :sessionId="promotionSessionId" v-if="addOrUpdateVisible" ref="addOrUpdate"
+                     @refreshDataList="getDataList"></add-or-update>
     </div>
   </div>
 </template>
 
 <script>
 import AddOrUpdate from "./seckillskurelation-add-or-update";
+
 export default {
   data() {
     return {
@@ -105,7 +109,7 @@ export default {
           key: this.dataForm.key,
           promotionSessionId: this.sessionId
         })
-      }).then(({ data }) => {
+      }).then(({data}) => {
         if (data && data.code === 0) {
           this.dataList = data.page.list;
           this.totalPage = data.page.totalCount;
@@ -144,8 +148,8 @@ export default {
       var ids = id
         ? [id]
         : this.dataListSelections.map(item => {
-            return item.id;
-          });
+          return item.id;
+        });
       this.$confirm(
         `确定对[id=${ids.join(",")}]进行[${id ? "删除" : "批量删除"}]操作?`,
         "提示",
@@ -159,7 +163,7 @@ export default {
           url: this.$http.adornUrl("/coupon/seckillskurelation/delete"),
           method: "post",
           data: this.$http.adornData(ids, false)
-        }).then(({ data }) => {
+        }).then(({data}) => {
           if (data && data.code === 0) {
             this.$message({
               message: "操作成功",

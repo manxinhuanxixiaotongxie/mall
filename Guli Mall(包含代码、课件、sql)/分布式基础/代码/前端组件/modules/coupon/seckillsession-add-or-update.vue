@@ -1,15 +1,15 @@
 <template>
   <el-dialog
-    :title="!dataForm.id ? '新增' : '修改'"
-    :close-on-click-modal="false"
-    :visible.sync="visible"
+      :title="!dataForm.id ? '新增' : '修改'"
+      :close-on-click-modal="false"
+      :visible.sync="visible"
   >
     <el-form
-      :model="dataForm"
-      :rules="dataRule"
-      ref="dataForm"
-      @keyup.enter.native="dataFormSubmit()"
-      label-width="120px"
+        :model="dataForm"
+        :rules="dataRule"
+        ref="dataForm"
+        @keyup.enter.native="dataFormSubmit()"
+        label-width="120px"
     >
       <el-form-item label="场次名称" prop="name">
         <el-input v-model="dataForm.name" placeholder="场次名称"></el-input>
@@ -46,16 +46,16 @@ export default {
       },
       dataRule: {
         name: [
-          { required: true, message: "场次名称不能为空", trigger: "blur" }
+          {required: true, message: "场次名称不能为空", trigger: "blur"}
         ],
         startTime: [
-          { required: true, message: "每日开始时间不能为空", trigger: "blur" }
+          {required: true, message: "每日开始时间不能为空", trigger: "blur"}
         ],
         endTime: [
-          { required: true, message: "每日结束时间不能为空", trigger: "blur" }
+          {required: true, message: "每日结束时间不能为空", trigger: "blur"}
         ],
         status: [
-          { required: true, message: "启用状态不能为空", trigger: "blur" }
+          {required: true, message: "启用状态不能为空", trigger: "blur"}
         ]
       }
     };
@@ -69,11 +69,11 @@ export default {
         if (this.dataForm.id) {
           this.$http({
             url: this.$http.adornUrl(
-              `/coupon/seckillsession/info/${this.dataForm.id}`
+                `/coupon/seckillsession/info/${this.dataForm.id}`
             ),
             method: "get",
             params: this.$http.adornParams()
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.dataForm.name = data.seckillSession.name;
               this.dataForm.startTime = data.seckillSession.startTime;
@@ -91,7 +91,7 @@ export default {
         if (valid) {
           this.$http({
             url: this.$http.adornUrl(
-              `/coupon/seckillsession/${!this.dataForm.id ? "save" : "update"}`
+                `/coupon/seckillsession/${!this.dataForm.id ? "save" : "update"}`
             ),
             method: "post",
             data: this.$http.adornData({
@@ -102,7 +102,7 @@ export default {
               status: this.dataForm.status,
               createTime: new Date()
             })
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
                 message: "操作成功",

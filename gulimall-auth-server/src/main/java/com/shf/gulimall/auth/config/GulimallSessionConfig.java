@@ -8,7 +8,7 @@ import org.springframework.session.web.http.CookieSerializer;
 import org.springframework.session.web.http.DefaultCookieSerializer;
 
 /**
- * @Description:    springSession配置类
+ * @Description: springSession配置类
  * @Created: with IntelliJ IDEA.
  * @author: 夏沫止水
  * @createTime: 2020-06-29 13:36
@@ -19,6 +19,7 @@ public class GulimallSessionConfig {
 
     /**
      * 自定义cookie
+     *
      * @return
      */
     @Bean
@@ -37,6 +38,7 @@ public class GulimallSessionConfig {
 
     /**
      * 修改redis序列化机制
+     *
      * @return
      */
     @Bean

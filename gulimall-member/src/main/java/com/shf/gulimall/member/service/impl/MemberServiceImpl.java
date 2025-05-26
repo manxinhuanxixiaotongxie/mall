@@ -9,13 +9,13 @@ import com.google.gson.Gson;
 import com.shf.common.utils.HttpUtils;
 import com.shf.common.utils.PageUtils;
 import com.shf.common.utils.Query;
-import com.shf.gulimall.member.entity.MemberLevelEntity;
-import com.shf.gulimall.member.service.MemberService;
 import com.shf.gulimall.member.dao.MemberDao;
 import com.shf.gulimall.member.dao.MemberLevelDao;
 import com.shf.gulimall.member.entity.MemberEntity;
+import com.shf.gulimall.member.entity.MemberLevelEntity;
 import com.shf.gulimall.member.exception.PhoneException;
 import com.shf.gulimall.member.exception.UsernameException;
+import com.shf.gulimall.member.service.MemberService;
 import com.shf.gulimall.member.utils.HttpClientUtils;
 import com.shf.gulimall.member.vo.MemberUserLoginVo;
 import com.shf.gulimall.member.vo.MemberUserRegisterVo;
@@ -78,6 +78,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
 
     /**
      * 检查手机号唯一
+     *
      * @param phone
      * @throws PhoneException
      */
@@ -95,6 +96,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
 
     /**
      * 检查用户名唯一
+     *
      * @param userName
      * @throws UsernameException
      */
@@ -164,9 +166,9 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
             //2、没有查到当前社交用户对应的记录我们就需要注册一个
             MemberEntity register = new MemberEntity();
             //3、查询当前社交用户的社交账号信息（昵称、性别等）
-            Map<String,String> query = new HashMap<>();
-            query.put("access_token",socialUser.getAccess_token());
-            query.put("uid",socialUser.getUid());
+            Map<String, String> query = new HashMap<>();
+            query.put("access_token", socialUser.getAccess_token());
+            query.put("uid", socialUser.getUid());
             HttpResponse response = HttpUtils.doGet("https://api.weibo.com", "/2/users/show.json", "get", new HashMap<String, String>(), query);
 
             if (response.getStatusLine().getStatusCode() == 200) {
@@ -178,7 +180,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberDao, MemberEntity> impl
                 String profileImageUrl = jsonObject.getString("profile_image_url");
 
                 register.setNickname(name);
-                register.setGender("m".equals(gender)?1:0);
+                register.setGender("m".equals(gender) ? 1 : 0);
                 register.setHeader(profileImageUrl);
                 register.setCreateTime(new Date());
                 register.setSocialUid(socialUser.getUid());

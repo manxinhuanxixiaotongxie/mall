@@ -3,7 +3,11 @@ package com.shf.gulimall.product.web;
 import com.shf.gulimall.product.entity.CategoryEntity;
 import com.shf.gulimall.product.service.CategoryService;
 import com.shf.gulimall.product.vo.Catelog2Vo;
-import org.redisson.api.*;
+import org.redisson.api.RCountDownLatch;
+import org.redisson.api.RLock;
+import org.redisson.api.RReadWriteLock;
+import org.redisson.api.RSemaphore;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -38,12 +42,12 @@ public class IndexController {
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 
-    @GetMapping(value = {"/","index.html"})
+    @GetMapping(value = {"/", "index.html"})
     private String indexPage(Model model) {
 
         //1、查出所有的一级分类
         List<CategoryEntity> categoryEntities = categoryService.getLevel1Categorys();
-        model.addAttribute("categories",categoryEntities);
+        model.addAttribute("categories", categoryEntities);
 
         return "index";
     }
@@ -81,7 +85,11 @@ public class IndexController {
         // internalLockLeaseTime 【看门狗时间】 / 3， 10s
         try {
             System.out.println("加锁成功，执行业务..." + Thread.currentThread().getId());
-            try { TimeUnit.SECONDS.sleep(20); } catch (InterruptedException e) { e.printStackTrace(); }
+            try {
+                TimeUnit.SECONDS.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         } finally {
@@ -102,6 +110,7 @@ public class IndexController {
      * 写 + 写 ：阻塞方式
      * 读 + 写 ：有读锁。写也需要等待
      * 只要有读或者写的存都必须等待
+     *
      * @return
      */
     @GetMapping(value = "/write")
@@ -115,7 +124,7 @@ public class IndexController {
             rLock.lock();
             s = UUID.randomUUID().toString();
             ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
-            ops.set("writeValue",s);
+            ops.set("writeValue", s);
             TimeUnit.SECONDS.sleep(10);
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -139,8 +148,7 @@ public class IndexController {
             s = ops.get("writeValue");
             try {
                 TimeUnit.SECONDS.sleep(10);
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         } catch (Exception e) {

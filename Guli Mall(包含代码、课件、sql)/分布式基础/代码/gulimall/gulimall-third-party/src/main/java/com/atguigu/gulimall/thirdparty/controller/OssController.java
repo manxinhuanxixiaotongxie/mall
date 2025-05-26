@@ -34,7 +34,6 @@ public class OssController {
     public R policy() {
 
 
-
         //https://gulimall-hello.oss-cn-beijing.aliyuncs.com/hahaha.jpg
 
         String host = "https://" + bucket + "." + endpoint; // host的格式为 bucketname.endpoint
@@ -72,6 +71,6 @@ public class OssController {
             System.out.println(e.getMessage());
         }
 
-        return R.ok().put("data",respMap);
+        return R.ok().put("data", respMap);
     }
 }

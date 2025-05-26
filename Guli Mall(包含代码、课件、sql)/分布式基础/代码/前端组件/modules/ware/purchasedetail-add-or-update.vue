@@ -1,15 +1,15 @@
 <template>
   <el-dialog
-    :title="!dataForm.id ? '新增' : '修改'"
-    :close-on-click-modal="false"
-    :visible.sync="visible"
+      :title="!dataForm.id ? '新增' : '修改'"
+      :close-on-click-modal="false"
+      :visible.sync="visible"
   >
     <el-form
-      :model="dataForm"
-      :rules="dataRule"
-      ref="dataForm"
-      @keyup.enter.native="dataFormSubmit()"
-      label-width="120px"
+        :model="dataForm"
+        :rules="dataRule"
+        ref="dataForm"
+        @keyup.enter.native="dataFormSubmit()"
+        label-width="120px"
     >
       <el-form-item label="采购商品id" prop="skuId">
         <el-input v-model="dataForm.skuId" placeholder="采购商品id"></el-input>
@@ -57,16 +57,16 @@ export default {
       },
       dataRule: {
         skuId: [
-          { required: true, message: "采购商品id不能为空", trigger: "blur" }
+          {required: true, message: "采购商品id不能为空", trigger: "blur"}
         ],
         skuNum: [
-          { required: true, message: "采购数量不能为空", trigger: "blur" }
+          {required: true, message: "采购数量不能为空", trigger: "blur"}
         ],
-        wareId: [{ required: true, message: "仓库id不能为空", trigger: "blur" }]
+        wareId: [{required: true, message: "仓库id不能为空", trigger: "blur"}]
       }
     };
   },
-  created(){
+  created() {
     this.getWares();
   },
   methods: {
@@ -78,7 +78,7 @@ export default {
           page: 1,
           limit: 500
         })
-      }).then(({ data }) => {
+      }).then(({data}) => {
         this.wareList = data.page.list;
       });
     },
@@ -90,11 +90,11 @@ export default {
         if (this.dataForm.id) {
           this.$http({
             url: this.$http.adornUrl(
-              `/ware/purchasedetail/info/${this.dataForm.id}`
+                `/ware/purchasedetail/info/${this.dataForm.id}`
             ),
             method: "get",
             params: this.$http.adornParams()
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.dataForm.purchaseId = data.purchaseDetail.purchaseId;
               this.dataForm.skuId = data.purchaseDetail.skuId;
@@ -113,7 +113,7 @@ export default {
         if (valid) {
           this.$http({
             url: this.$http.adornUrl(
-              `/ware/purchasedetail/${!this.dataForm.id ? "save" : "update"}`
+                `/ware/purchasedetail/${!this.dataForm.id ? "save" : "update"}`
             ),
             method: "post",
             data: this.$http.adornData({
@@ -125,7 +125,7 @@ export default {
               wareId: this.dataForm.wareId,
               status: this.dataForm.status
             })
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
                 message: "操作成功",

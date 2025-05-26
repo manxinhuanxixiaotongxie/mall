@@ -51,14 +51,14 @@ export default {
         addOther: ""
       },
       dataRule: {
-        skuId: [{ required: true, message: "spu_id不能为空", trigger: "blur" }],
+        skuId: [{required: true, message: "spu_id不能为空", trigger: "blur"}],
         fullCount: [
-          { required: true, message: "满几件不能为空", trigger: "blur" }
+          {required: true, message: "满几件不能为空", trigger: "blur"}
         ],
         discount: [
-          { required: true, message: "打几折不能为空", trigger: "blur" }
+          {required: true, message: "打几折不能为空", trigger: "blur"}
         ],
-        price: [{ required: true, message: "折后价不能为空", trigger: "blur" }],
+        price: [{required: true, message: "折后价不能为空", trigger: "blur"}],
         addOther: [
           {
             required: true,
@@ -82,7 +82,7 @@ export default {
             ),
             method: "get",
             params: this.$http.adornParams()
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.dataForm.skuId = data.skuLadder.skuId;
               this.dataForm.fullCount = data.skuLadder.fullCount;
@@ -111,7 +111,7 @@ export default {
               price: this.dataForm.price,
               addOther: this.dataForm.addOther
             })
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
                 message: "操作成功",

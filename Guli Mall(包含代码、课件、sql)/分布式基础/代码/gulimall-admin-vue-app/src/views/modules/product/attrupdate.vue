@@ -40,7 +40,8 @@
                     v-model="dataResp.baseAttrs[gidx][aidx].showDesc"
                     :true-label="1"
                     :false-label="0"
-                  >快速展示</el-checkbox>
+                  >快速展示
+                  </el-checkbox>
                 </el-form-item>
               </el-form>
             </el-tab-pane>
@@ -72,7 +73,7 @@ export default {
   },
   computed: {},
   methods: {
-    clearData(){
+    clearData() {
       this.dataResp.attrGroups = [];
       this.dataResp.baseAttrs = [];
       this.spuAttrsMap = {};
@@ -81,7 +82,7 @@ export default {
       this.$http({
         url: this.$http.adornUrl(`/product/attr/base/listforspu/${this.spuId}`),
         method: "get"
-      }).then(({ data }) => {
+      }).then(({data}) => {
         data.data.forEach(item => {
           this.spuAttrsMap["" + item.attrId] = item;
         });
@@ -101,7 +102,7 @@ export default {
         ),
         method: "get",
         params: this.$http.adornParams({})
-      }).then(({ data }) => {
+      }).then(({data}) => {
         //先对表单的baseAttrs进行初始化
         data.data.forEach(item => {
           let attrArray = [];
@@ -161,7 +162,7 @@ export default {
             url: this.$http.adornUrl(`/product/attr/update/${this.spuId}`),
             method: "post",
             data: this.$http.adornData(submitData, false)
-          }).then(({ data }) => {
+          }).then(({data}) => {
             this.$message({
               type: "success",
               message: "属性修改成功!"
@@ -171,12 +172,13 @@ export default {
         .catch((e) => {
           this.$message({
             type: "info",
-            message: "已取消修改"+e
+            message: "已取消修改" + e
           });
         });
     }
   },
-  created() {},
+  created() {
+  },
   activated() {
     this.clearData();
     this.getQueryParams();

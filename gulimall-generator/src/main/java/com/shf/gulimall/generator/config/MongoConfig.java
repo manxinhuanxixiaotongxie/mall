@@ -51,7 +51,6 @@ public class MongoConfig {
     }
 
 
-
     public MongoConfig setHost(String host) {
         this.host = host;
         return this;

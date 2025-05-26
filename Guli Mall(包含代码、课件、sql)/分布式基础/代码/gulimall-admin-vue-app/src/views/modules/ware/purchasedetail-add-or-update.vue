@@ -57,16 +57,16 @@ export default {
       },
       dataRule: {
         skuId: [
-          { required: true, message: "采购商品id不能为空", trigger: "blur" }
+          {required: true, message: "采购商品id不能为空", trigger: "blur"}
         ],
         skuNum: [
-          { required: true, message: "采购数量不能为空", trigger: "blur" }
+          {required: true, message: "采购数量不能为空", trigger: "blur"}
         ],
-        wareId: [{ required: true, message: "仓库id不能为空", trigger: "blur" }]
+        wareId: [{required: true, message: "仓库id不能为空", trigger: "blur"}]
       }
     };
   },
-  created(){
+  created() {
     this.getWares();
   },
   methods: {
@@ -78,7 +78,7 @@ export default {
           page: 1,
           limit: 500
         })
-      }).then(({ data }) => {
+      }).then(({data}) => {
         this.wareList = data.page.list;
       });
     },
@@ -94,7 +94,7 @@ export default {
             ),
             method: "get",
             params: this.$http.adornParams()
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.dataForm.purchaseId = data.purchaseDetail.purchaseId;
               this.dataForm.skuId = data.purchaseDetail.skuId;
@@ -125,7 +125,7 @@ export default {
               wareId: this.dataForm.wareId,
               status: this.dataForm.status
             })
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
                 message: "操作成功",

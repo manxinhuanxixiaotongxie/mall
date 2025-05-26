@@ -28,8 +28,8 @@
       </el-form-item>
       <el-form-item label="通知方式" prop="noticeType">
         <el-select v-model="dataForm.noticeType" placeholder="请选择">
-          <el-option  label="短信" :value="0"></el-option>
-          <el-option  label="邮件" :value="1"></el-option>
+          <el-option label="短信" :value="0"></el-option>
+          <el-option label="邮件" :value="1"></el-option>
         </el-select>
       </el-form-item>
     </el-form>
@@ -56,17 +56,17 @@ export default {
       },
       dataRule: {
         memberId: [
-          { required: true, message: "member_id不能为空", trigger: "blur" }
+          {required: true, message: "member_id不能为空", trigger: "blur"}
         ],
-        skuId: [{ required: true, message: "sku_id不能为空", trigger: "blur" }],
+        skuId: [{required: true, message: "sku_id不能为空", trigger: "blur"}],
         sessionId: [
-          { required: true, message: "活动场次id不能为空", trigger: "blur" }
+          {required: true, message: "活动场次id不能为空", trigger: "blur"}
         ],
         subcribeTime: [
-          { required: true, message: "订阅时间不能为空", trigger: "blur" }
+          {required: true, message: "订阅时间不能为空", trigger: "blur"}
         ],
         sendTime: [
-          { required: true, message: "发送时间不能为空", trigger: "blur" }
+          {required: true, message: "发送时间不能为空", trigger: "blur"}
         ],
         noticeType: [
           {
@@ -91,7 +91,7 @@ export default {
             ),
             method: "get",
             params: this.$http.adornParams()
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.dataForm.memberId = data.seckillSkuNotice.memberId;
               this.dataForm.skuId = data.seckillSkuNotice.skuId;
@@ -124,7 +124,7 @@ export default {
               sendTime: this.dataForm.sendTime,
               noticeType: this.dataForm.noticeType
             })
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
                 message: "操作成功",

@@ -45,8 +45,8 @@ public class HelloController {
 
         if (!StringUtils.isEmpty(token)) {
 //            去sso.com获取当前token真正对应用户的信息
-            RestTemplate restTemplate=new RestTemplate();
-            ResponseEntity<String> forEntity = restTemplate.getForEntity(ssoServerUrl+"/userinfo?token=" + token, String.class);
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<String> forEntity = restTemplate.getForEntity(ssoServerUrl + "/userinfo?token=" + token, String.class);
             String body = forEntity.getBody();
 
             session.setAttribute("loginUser", body);
@@ -55,7 +55,7 @@ public class HelloController {
 
         if (loginUser == null) {
 
-            return "redirect:" + ssoServerUrl+"/login.html?redirect_url=http://client1.com:8081/employees";
+            return "redirect:" + ssoServerUrl + "/login.html?redirect_url=http://client1.com:8081/employees";
         } else {
 
 

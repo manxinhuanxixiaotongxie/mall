@@ -28,7 +28,7 @@ public class LoginUserInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 //        放行所有后台接口
         String orign = request.getHeader("origin");
-        if ("http://admin.gulimall.com".equalsIgnoreCase(orign)){
+        if ("http://admin.gulimall.com".equalsIgnoreCase(orign)) {
             return true;
         }
 

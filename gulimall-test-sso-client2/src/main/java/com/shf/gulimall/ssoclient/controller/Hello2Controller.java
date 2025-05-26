@@ -44,8 +44,8 @@ public class Hello2Controller {
                             @RequestParam(value = "token", required = false) String token) {
 
         if (!StringUtils.isEmpty(token)) {
-            RestTemplate restTemplate=new RestTemplate();
-            ResponseEntity<String> forEntity = restTemplate.getForEntity(ssoServerUrl+"/userinfo?token=" + token, String.class);
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<String> forEntity = restTemplate.getForEntity(ssoServerUrl + "/userinfo?token=" + token, String.class);
             String body = forEntity.getBody();
 
             session.setAttribute("loginUser", body);
@@ -54,7 +54,7 @@ public class Hello2Controller {
 
         if (loginUser == null) {
 
-            return "redirect:" + ssoServerUrl+"/login.html?redirect_url=http://client2.com:8082/boss";
+            return "redirect:" + ssoServerUrl + "/login.html?redirect_url=http://client2.com:8082/boss";
         } else {
 
 

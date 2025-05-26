@@ -46,16 +46,16 @@ export default {
       },
       dataRule: {
         name: [
-          { required: true, message: "场次名称不能为空", trigger: "blur" }
+          {required: true, message: "场次名称不能为空", trigger: "blur"}
         ],
         startTime: [
-          { required: true, message: "每日开始时间不能为空", trigger: "blur" }
+          {required: true, message: "每日开始时间不能为空", trigger: "blur"}
         ],
         endTime: [
-          { required: true, message: "每日结束时间不能为空", trigger: "blur" }
+          {required: true, message: "每日结束时间不能为空", trigger: "blur"}
         ],
         status: [
-          { required: true, message: "启用状态不能为空", trigger: "blur" }
+          {required: true, message: "启用状态不能为空", trigger: "blur"}
         ]
       }
     };
@@ -73,7 +73,7 @@ export default {
             ),
             method: "get",
             params: this.$http.adornParams()
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.dataForm.name = data.seckillSession.name;
               this.dataForm.startTime = data.seckillSession.startTime;
@@ -102,7 +102,7 @@ export default {
               status: this.dataForm.status,
               createTime: new Date()
             })
-          }).then(({ data }) => {
+          }).then(({data}) => {
             if (data && data.code === 0) {
               this.$message({
                 message: "操作成功",

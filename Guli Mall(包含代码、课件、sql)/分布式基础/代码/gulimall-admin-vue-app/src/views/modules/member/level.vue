@@ -10,13 +10,15 @@
           v-if="isAuth('member:memberlevel:save')"
           type="primary"
           @click="addOrUpdateHandle()"
-        >新增</el-button>
+        >新增
+        </el-button>
         <el-button
           v-if="isAuth('member:memberlevel:delete')"
           type="danger"
           @click="deleteHandle()"
           :disabled="dataListSelections.length <= 0"
-        >批量删除</el-button>
+        >批量删除
+        </el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -36,7 +38,8 @@
           <i class="el-icon-error" v-else></i>
         </template>
       </el-table-column>
-      <el-table-column prop="freeFreightPoint" header-align="center" align="center" label="免运费标准"></el-table-column>
+      <el-table-column prop="freeFreightPoint" header-align="center" align="center"
+                       label="免运费标准"></el-table-column>
       <el-table-column
         prop="commentGrowthPoint"
         header-align="center"
@@ -102,6 +105,7 @@
 
 <script>
 import AddOrUpdate from "./memberlevel-add-or-update";
+
 export default {
   data() {
     return {
@@ -135,7 +139,7 @@ export default {
           limit: this.pageSize,
           key: this.dataForm.key
         })
-      }).then(({ data }) => {
+      }).then(({data}) => {
         if (data && data.code === 0) {
           this.dataList = data.page.list;
           this.totalPage = data.page.totalCount;
@@ -173,8 +177,8 @@ export default {
       var ids = id
         ? [id]
         : this.dataListSelections.map(item => {
-            return item.id;
-          });
+          return item.id;
+        });
       this.$confirm(
         `确定对[id=${ids.join(",")}]进行[${id ? "删除" : "批量删除"}]操作?`,
         "提示",
@@ -188,7 +192,7 @@ export default {
           url: this.$http.adornUrl("/member/memberlevel/delete"),
           method: "post",
           data: this.$http.adornData(ids, false)
-        }).then(({ data }) => {
+        }).then(({data}) => {
           if (data && data.code === 0) {
             this.$message({
               message: "操作成功",
