@@ -12,6 +12,7 @@ File Encoding         : 65001
 
 Date: 2020-03-11 17:37:07
 */
+use db_sms;
 
 SET
 FOREIGN_KEY_CHECKS=0;

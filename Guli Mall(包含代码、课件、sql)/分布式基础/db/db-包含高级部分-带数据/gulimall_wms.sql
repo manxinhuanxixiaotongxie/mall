@@ -12,6 +12,7 @@ File Encoding         : 65001
 
 Date: 2020-03-11 17:37:28
 */
+use db_wms;
 
 SET
 FOREIGN_KEY_CHECKS=0;

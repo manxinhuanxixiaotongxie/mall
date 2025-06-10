@@ -3,6 +3,7 @@ package com.shf.gulimall.order.config;
 import com.lly835.bestpay.config.WxPayConfig;
 import com.lly835.bestpay.service.BestPayService;
 import com.lly835.bestpay.service.impl.BestPayServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -21,11 +22,14 @@ public class BestPayConfig {
     @Resource
     private WxAccountConfig wxAccountConfig;
 
+    @Autowired
+    private WxPayConfig wxPayConfig;
+
     @Bean
     public BestPayService bestPayService() {
 
         BestPayServiceImpl bestPayService = new BestPayServiceImpl();
-        bestPayService.setWxPayConfig(wxPayConfig());
+        bestPayService.setWxPayConfig(wxPayConfig);
         return bestPayService;
     }
 

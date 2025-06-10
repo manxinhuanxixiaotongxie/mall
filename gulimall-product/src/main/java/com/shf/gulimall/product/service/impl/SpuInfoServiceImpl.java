@@ -49,6 +49,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -275,13 +276,11 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
         //TODO 4、查出当前sku的所有可以被用来检索的规格属性
         List<ProductAttrValueEntity> baseAttrs = productAttrValueService.baseAttrListforspu(spuId);
 
-        List<Long> attrIds = baseAttrs.stream().map(attr -> {
-            return attr.getAttrId();
-        }).collect(Collectors.toList());
+        List<Long> attrIds = baseAttrs.stream().map(ProductAttrValueEntity::getAttrId).collect(Collectors.toList());
 
         List<Long> searchAttrIds = attrService.selectSearchAttrs(attrIds);
         //转换为Set集合
-        Set<Long> idSet = searchAttrIds.stream().collect(Collectors.toSet());
+        Set<Long> idSet = new HashSet<>(searchAttrIds);
 
         List<SkuEsModel.Attrs> attrsList = baseAttrs.stream().filter(item -> {
             return idSet.contains(item.getAttrId());
@@ -302,7 +301,7 @@ public class SpuInfoServiceImpl extends ServiceImpl<SpuInfoDao, SpuInfoEntity> i
             TypeReference<List<SkuHasStockVo>> typeReference = new TypeReference<List<SkuHasStockVo>>() {
             };
             stockMap = skuHasStock.getData(typeReference).stream()
-                    .collect(Collectors.toMap(SkuHasStockVo::getSkuId, item -> item.getHasStock()));
+                    .collect(Collectors.toMap(SkuHasStockVo::getSkuId, SkuHasStockVo::getHasStock));
         } catch (Exception e) {
             log.error("库存服务查询异常：原因{}", e);
         }
